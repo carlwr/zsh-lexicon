@@ -17,7 +17,7 @@ name: Release VS Code extension
 on:
   push:
     tags:
-      - "ext-v*"
+      - "better-zsh-v*"
   workflow_dispatch:
     inputs:
       dry_run:
@@ -49,17 +49,17 @@ jobs:
       # The tag guard and tag-bound steps below run on tag refs only, so a
       # real publish must come from one; elsewhere a manual run only rehearses.
       - name: Refuse a real publish off-tag
-        if: inputs.dry_run == false && !startsWith(github.ref, 'refs/tags/ext-v')
+        if: inputs.dry_run == false && !startsWith(github.ref, 'refs/tags/better-zsh-v')
         run: |
-          echo "real publish needs an ext-v* tag ref; got $GITHUB_REF"
+          echo "real publish needs a better-zsh-v* tag ref; got $GITHUB_REF"
           exit 1
 
       - uses: ./.github/actions/setup-node-pnpm
 
       - name: Verify tag matches package version
-        if: startsWith(github.ref, 'refs/tags/ext-v')
+        if: startsWith(github.ref, 'refs/tags/better-zsh-v')
         run: |
-          tag_version=${GITHUB_REF#refs/tags/ext-v}
+          tag_version=${GITHUB_REF#refs/tags/better-zsh-v}
           pkg_version=$(node -p "require('./packages/vscode-better-zsh/package.json').version")
           echo "tag=$tag_version pkg=$pkg_version"
           [ "$tag_version" = "$pkg_version" ] || { echo "tag mismatch vs package.json"; exit 1; }

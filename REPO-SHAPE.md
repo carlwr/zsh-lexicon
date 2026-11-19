@@ -1,11 +1,11 @@
 ---
 audience: maintainer
-read-when: orienting on repo layout and product dependency arrows
+read-when: orienting on repo layout, product dependency arrows, release streams
 ---
 
 # Repo shape
 
-Single source of truth for the layout and the product dependency arrow set.
+Single source of truth for the layout, the product dependency arrow set and the release streams.
 
 ## Layout
 
@@ -66,6 +66,9 @@ Settled public names:
 
 ## Releases
 
+- one tag stream per `release-*.yml` workflow; its prefix: the `on:` trigger
+  - one crate, so `zshref` and `zshref-mcp` share a version and a tag
+- "Latest" on the Releases page is zshref's: every other stable `gh release create` passes `--latest=false`
 - every product release embeds a released lexicon; release workflows check it: `scripts/check-released-lexicon`
 
 ## One repo
