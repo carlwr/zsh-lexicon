@@ -18,7 +18,7 @@ Rust-only edits (skip `pnpm qa`):
 
 ```sh
 cargo build --all-features && cargo test --all-features
-# from outside zshref-rs/, add: --manifest-path zshref-rs/Cargo.toml
+# from the repo root, add: --manifest-path crates/zshref/Cargo.toml
 ```
 
 - Without `--all-features` the MCP binary and its test are skipped.

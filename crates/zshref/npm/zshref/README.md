@@ -2,7 +2,7 @@
 
 > **Status: pre-release (alpha).** Published from the [`zsh-lexicon`](https://github.com/carlwr/zsh-lexicon) monorepo to exercise CI and packaging; the first non-alpha release has not yet been cut.
 
-Prebuilt [`zshref`](https://github.com/carlwr/zsh-lexicon/tree/main/zshref-rs#readme) binaries for npm: the `zshref` CLI and the `zshref-mcp` MCP server — an offline, structured reference for zsh syntax, built for agent pipelines.
+Prebuilt [`zshref`](https://github.com/carlwr/zsh-lexicon/tree/main/crates/zshref#readme) binaries for npm: the `zshref` CLI and the `zshref-mcp` MCP server — an offline, structured reference for zsh syntax, built for agent pipelines.
 
 ```sh
 npm i -g @carlwr/zshref    # installs both `zshref` and `zshref-mcp`
@@ -13,4 +13,4 @@ Only the MCP server wanted? `npx -y @carlwr/zshref-mcp` — see [`@carlwr/zshref
 
 Every supported platform's binaries ship in this one package (macOS and Linux on x64 and arm64, Windows on x64); the `bin` entries are tiny launchers that run the one for the current platform — nothing is downloaded at install time. Also available as `cargo install zshref --features mcp`, or as archives on the GitHub release.
 
-Usage, MCP client configuration, tool descriptions: the [project README](https://github.com/carlwr/zsh-lexicon/tree/main/zshref-rs#readme).
+Usage, MCP client configuration, tool descriptions: the [project README](https://github.com/carlwr/zsh-lexicon/tree/main/crates/zshref#readme).

@@ -16,7 +16,7 @@ USAGE:
 MODES:
 
   assets <dir>
-    <dir>: a tree as \`make vendor\` unpacks it, e.g. zshref-rs/data
+    <dir>: a tree as \`make vendor\` unpacks it, e.g. crates/zshref/data
     <version>: the packageVersion of <dir>/json/index.json
     downloads that release's assets (\`make print-release-assets\`), checks
     them against their .sha256, unpacks them as \`make vendor\` does, then

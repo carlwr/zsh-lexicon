@@ -41,7 +41,7 @@ updates:
       interval: "weekly"
     open-pull-requests-limit: 0
   - package-ecosystem: "cargo"
-    directory: "/zshref-rs"
+    directory: "/crates/zshref"
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 0

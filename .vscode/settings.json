@@ -8,5 +8,7 @@
   },
   "[rust]": {
     "editor.formatOnSave": true
-  }
+  },
+  // rust-analyzer looks for a Cargo.toml at most one directory down.
+  "rust-analyzer.linkedProjects": ["crates/zshref/Cargo.toml"]
 }

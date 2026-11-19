@@ -1,9 +1,9 @@
-name: CI — zshref-rs
+name: CI — zshref
 
 on:
   pull_request:
     paths:
-      - "zshref-rs/**"
+      - "crates/zshref/**"
       - "packages/zsh-lexicon/**"
       # zsh-lexicon build inputs outside its tree: `make` builds it first.
       - "scripts/**"
@@ -20,7 +20,7 @@ on:
     branches:
       - "**"
     paths:
-      - "zshref-rs/**"
+      - "crates/zshref/**"
       - "packages/zsh-lexicon/**"
       # zsh-lexicon build inputs outside its tree: `make` builds it first.
       - "scripts/**"
@@ -63,7 +63,7 @@ jobs:
       # `target/` entries.
       - uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2.9.2
         with:
-          workspaces: zshref-rs
+          workspaces: crates/zshref
 
       # The Rust test suite shells out to zsh.
       - name: Install zsh
@@ -86,25 +86,25 @@ jobs:
       # Unlocked steps above rewrite a stale Cargo.lock, so no later `--locked`
       # can catch it; the diff does.
       - name: Cargo.lock is current
-        run: git diff --exit-code -- zshref-rs/Cargo.lock
+        run: git diff --exit-code -- crates/zshref/Cargo.lock
 
       # `cargo package` only builds the unpacked tarball; this runs its test
       # suite too — the published crate, tested standalone. Shared target
       # dir: dependencies come from the steps above.
       - name: Test the packaged crate standalone
         run: |
-          version=$(cargo metadata --no-deps --format-version 1 --manifest-path zshref-rs/Cargo.toml \
+          version=$(cargo metadata --no-deps --format-version 1 --manifest-path crates/zshref/Cargo.toml \
                     | jq -r '.packages[0].version')
-          cd "zshref-rs/target/package/zshref-$version"
-          ZSHREF_DATA_SOURCE=vendored CARGO_TARGET_DIR=$GITHUB_WORKSPACE/zshref-rs/target \
+          cd "crates/zshref/target/package/zshref-$version"
+          ZSHREF_DATA_SOURCE=vendored CARGO_TARGET_DIR=$GITHUB_WORKSPACE/crates/zshref/target \
             cargo test --all-features --locked
 
       # Dependency bumps move Cargo.lock without regenerating the notices; the
       # zsh licence section follows the notice vendored into `data/` above.
       - name: Third-party notices match Cargo.lock
         run: |
-          zshref-rs/scripts/third-party-notices
-          git diff --exit-code -- zshref-rs/THIRD_PARTY_NOTICES.md
+          crates/zshref/scripts/third-party-notices
+          git diff --exit-code -- crates/zshref/THIRD_PARTY_NOTICES.md
 
       - run: make cli-npm-check
 
@@ -112,4 +112,4 @@ jobs:
       # errors on its `tests/` (Swatinem/rust-cache#387); it caches no file
       # there anyway. Drop once that fix ships.
       - name: Drop the unpacked crate
-        run: rm -rf zshref-rs/target/package
+        run: rm -rf crates/zshref/target/package

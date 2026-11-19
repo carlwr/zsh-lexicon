@@ -1,10 +1,10 @@
-# docs: zshref-rs/DEVELOPMENT.md
+# docs: crates/zshref/DEVELOPMENT.md
 # cwd: the repo root — all paths are relative to it
 
 SHELL          = bash
 .SHELLFLAGS   += -eu -o pipefail  # ignored by old `make`-s; that's OK
 
-crate-dir      = ./zshref-rs
+crate-dir      = ./crates/zshref
 mono           = cd $(crate-dir) && ZSHREF_DATA_SOURCE=monorepo
 vendored       = cd $(crate-dir) && ZSHREF_DATA_SOURCE=vendored
 host           = $(shell rustc -vV | sed -n 's/^host: //p')
@@ -88,7 +88,7 @@ cli-npm-check: artifacts
 
 # The release workflow under act, dry-run, on the one row act can build here
 # (Apple Silicon runs arm64 containers): every job through both --dry-run
-# publishes. Docs: zshref-rs/docs/distribution.md.
+# publishes. Docs: crates/zshref/docs/distribution.md.
 .PHONY:\
 cli-release-act
 cli-release-act:

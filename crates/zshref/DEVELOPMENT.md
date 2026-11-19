@@ -16,7 +16,7 @@ Every target: the repo-root `Makefile`; CI's selection of them: `.github/workflo
 
 ## Fast dev loop
 
-From inside `zshref-rs/`:
+From the crate directory:
 
 ```sh
 cargo build && ./target/debug/zshref <args>
@@ -36,5 +36,5 @@ Manual, outside CI: `scripts/probe-opencode` (`--help`).
 From the repo root, for the current interactive session:
 
 ```sh
-source =(cd zshref-rs && cargo run --quiet -- completions zsh)
+source =(cd crates/zshref && cargo run --quiet -- completions zsh)
 ```

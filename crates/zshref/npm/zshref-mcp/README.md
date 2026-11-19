@@ -16,4 +16,4 @@ claude mcp add zshref -- npx -y @carlwr/zshref-mcp
 
 The binaries come from the dependency [`@carlwr/zshref`](https://www.npmjs.com/package/@carlwr/zshref), which also carries the `zshref` CLI; this package adds only the `zshref-mcp` command. Install one of the two globally, not both.
 
-Tool descriptions, per-client configuration, other install channels: the [project README](https://github.com/carlwr/zsh-lexicon/tree/main/zshref-rs#readme).
+Tool descriptions, per-client configuration, other install channels: the [project README](https://github.com/carlwr/zsh-lexicon/tree/main/crates/zshref#readme).

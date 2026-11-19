@@ -18,8 +18,8 @@
       "**",
       // Rust crate: vendored JSON and build output must not be reformatted
       // by a bare root run / the LSP; `npm/` is JS and stays in.
-      "!zshref-rs/data",
-      "!zshref-rs/target"
+      "!crates/zshref/data",
+      "!crates/zshref/target"
     ]
   },
   "formatter": {

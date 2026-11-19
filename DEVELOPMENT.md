@@ -9,9 +9,9 @@ Repo-level notes; package detail lives in each package.
 
 ### Changes to the release assets
 
-`zshref-rs/` embeds zsh-lexicon's JSON artifacts and tests its resolver mirror against the conformance fixture beside them. Any change to those artifacts — taxonomy, record fields, resolver behaviour — is cross-language.
+`crates/zshref/` embeds zsh-lexicon's JSON artifacts and tests its resolver mirror against the conformance fixture beside them. Any change to those artifacts — taxonomy, record fields, resolver behaviour — is cross-language.
 
-A resolver change the mirror does not follow fails `make cli-test`. How the artifacts reach the crate: `zshref-rs/docs/data-sync.md`.
+A resolver change the mirror does not follow fails `make cli-test`. How the artifacts reach the crate: `crates/zshref/docs/data-sync.md`.
 
 ## Integration tests via `act`
 

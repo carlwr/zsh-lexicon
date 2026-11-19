@@ -10,7 +10,7 @@ me_dir=${0:A:h}
 
 help="
 Usage:
-  $me [zsh-lexicon|vscode-better-zsh|zsh-lexicon-web|zshref-rs]...
+  $me [zsh-lexicon|vscode-better-zsh|zsh-lexicon-web|zshref]...
 
 Print the repo overview. With subpackage args, also print file trees for those
 packages.
@@ -38,7 +38,7 @@ foreach arg ( $@ ) {
        (zsh-lexicon      ) dirs_ts+=( packages/zsh-lexicon       )
     ;; (vscode-better-zsh) dirs_ts+=( packages/vscode-better-zsh )
     ;; (zsh-lexicon-web  ) dirs_ts+=( packages/zsh-lexicon-web   )
-    ;; (zshref-rs        ) dirs_rs+=( zshref-rs                  )
+    ;; (zshref           ) dirs_rs+=( crates/zshref              )
     ;; (*                ) die "illegal arg: $arg"
     ;;
   esac
@@ -102,7 +102,7 @@ print
       "  $me zsh-lexicon" \
       "  $me vscode-better-zsh" \
       "  $me zsh-lexicon-web" \
-      "  $me zshref-rs" \
+      "  $me zshref" \
       "  $me zsh-lexicon vscode-better-zsh"
   fi
   print

@@ -24,6 +24,6 @@ mod resolver;
 #[macro_export]
 macro_rules! project_url {
     () => {
-        "github.com/carlwr/zsh-lexicon/tree/main/zshref-rs"
+        "github.com/carlwr/zsh-lexicon/tree/main/crates/zshref"
     };
 }

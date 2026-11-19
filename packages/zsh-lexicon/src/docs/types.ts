@@ -29,7 +29,7 @@ export type Documented<K extends DocCategory> = string & {
   readonly __documented: K
 }
 
-// MIRRORED-IN: zshref-rs/src/lexicon.rs
+// MIRRORED-IN: crates/zshref/src/lexicon.rs
 /**
  * What every record carries: its category, its lexicon identity and its
  * surface form — the structural identity invariant. A
@@ -72,7 +72,7 @@ export type HistoryExpnKind =
   | "word-designator"
   | "modifier"
 
-// MIRRORED-IN: zshref-rs/src/lexicon.rs
+// MIRRORED-IN: crates/zshref/src/lexicon.rs
 /**
  * Short-option alias for a long zsh option. zsh has two single-letter option
  * tables: the default one (plain zsh, csh emulation) and the sh/ksh one;
@@ -288,7 +288,7 @@ export interface ComplexCommandDoc
   readonly bodyKeywords: readonly string[]
 }
 
-// MIRRORED-IN: zshref-rs/src/resolver.rs
+// MIRRORED-IN: crates/zshref/src/resolver.rs
 /**
  * Redirection. `id` is `sig` with whitespace replaced by `_` (`"> word"` →
  * `">_word"`, `"<<[-] word"` → `"<<[-]_word"`); `display` is `sig`.
@@ -364,7 +364,7 @@ export interface ParamExpnFlagDoc
   readonly args: readonly string[]
 }
 
-// MIRRORED-IN: zshref-rs/src/resolver.rs
+// MIRRORED-IN: crates/zshref/src/resolver.rs
 export interface HistoryExpnDoc
   extends DocRecordBase<"history_expn">,
     SyntaxDocBase {
@@ -504,7 +504,7 @@ export interface ArithOpDoc extends DocRecordBase<"arith_op">, SyntaxDocBase {
  */
 export type SpecialFunctionKind = "hook" | "trap-literal" | "trap-template"
 
-// MIRRORED-IN: zshref-rs/src/resolver.rs
+// MIRRORED-IN: crates/zshref/src/resolver.rs
 /** Special function — hooks and TRAP* from `func.yo` §Special Functions. */
 export interface SpecialFunctionDoc
   extends DocRecordBase<"special_function">,

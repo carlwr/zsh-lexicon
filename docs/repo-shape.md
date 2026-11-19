@@ -11,14 +11,13 @@ Single source of truth for the layout, the product dependency arrow set and the 
 
 ```
 .
-├── packages/
-│   ├── zsh-lexicon          TS lib: lexicon, resolvers, rendering; emits the release assets
-│   ├── vscode-better-zsh    VS Code extension
-│   └── zsh-lexicon-web      SPA; all NLP; index built at build time
-└── zshref-rs/               Rust crate: `zshref` CLI + `zshref-mcp` bins; not a pnpm member
+├── crates/
+│   └── zshref               Rust crate: `zshref` CLI + `zshref-mcp` bins; not a pnpm member
+└── packages/
+    ├── zsh-lexicon          TS lib: lexicon, resolvers, rendering; emits the release assets
+    ├── vscode-better-zsh    VS Code extension
+    └── zsh-lexicon-web      SPA; all NLP; index built at build time
 ```
-
-The crate ships as `zshref`; `zshref-rs/` is its directory here.
 
 ## Dependencies
 
@@ -30,7 +29,7 @@ An arrow reads "consumes, pinned by version"; its label is the mechanism:
    workspace link      workspace link           release assets
     (built dist/)       (built dist/)    (lexicon JSON, resolver fixture)
           ▼                   ▼                        ▼
-  vscode-better-zsh    zsh-lexicon-web             zshref-rs
+  vscode-better-zsh    zsh-lexicon-web              zshref
                        ┌──────┴──────┐
                        ▼             ▼
                HuggingFace Hub    jsDelivr
@@ -38,7 +37,7 @@ An arrow reads "consumes, pinned by version"; its label is the mechanism:
 ```
 
 - workspace link: pnpm `workspace:*` onto the upstream's built `dist/`; freshness: `scripts/build/README.md`
-- release assets: zsh-lexicon's release tarballs, packed and vendored by `make vendor` — `zshref-rs/docs/data-sync.md`
+- release assets: zsh-lexicon's release tarballs, packed and vendored by `make vendor` — `crates/zshref/docs/data-sync.md`
 - `zsh-lexicon-web` consumes `zsh-lexicon` at build time only — the index build; the browser bundle is `zsh-lexicon`-free (`packages/zsh-lexicon-web/AGENTS.md`)
 - zsh-lexicon is the only producer; the in-repo consumers are leaves with no consumer of their own
 
@@ -46,7 +45,7 @@ Invariants — what the shape was chosen for, and the constraint on any change t
 
 - one root of truth; every edge a pinned version of a standard mechanism
 - leaves have no consumers: no freshness oracles, no fingerprints
-- one behaviour mirror — the resolvers — owned by `zshref-rs`, checked against a fixture co-released with the lexicon
+- one behaviour mirror — the resolvers — owned by the `zshref` crate, checked against a fixture co-released with the lexicon
 - one language crossing, one direction — TS → Rust — carried by data; the mirror above is its only behaviour component
 
 The shape before the 2026 reorg, and why it changed: the tag `pre-reorg` (its `.reorg-work/`).

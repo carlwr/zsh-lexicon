@@ -10,7 +10,7 @@ read-when: subsystem rationale and design decisions
 Layered docs:
 
 - `docs/principles.md` — cross-cutting principles
-- `zshref-rs/docs/design.md` — the `zshref` crate's own rationale
+- `crates/zshref/docs/design.md` — the `zshref` crate's own rationale
 - `AGENTS.md` — contributor conventions entry point; links into topic files for universal patterns
 - maintainer-doc index: `./scripts/list-maintainer-docs`
 
@@ -371,7 +371,7 @@ Revisit once Node's text imports are stable.
 The Rust crate re-implements one behaviour — the resolvers; the rest it consumes as baked JSON.
 
 - Markers (`// MIRRORED-IN:` / `// MIRROR-OF:`) on the mirrored pairs (`rg 'MIRRORED-IN|MIRROR-OF'`): orientation, no mechanical check.
-- Resolver conformance: the fixture zsh-lexicon releases beside the lexicon JSON (`packages/zsh-lexicon/scripts/resolver-fixture.ts`), replayed in-crate by `zshref-rs/src/resolver.rs`.
+- Resolver conformance: the fixture zsh-lexicon releases beside the lexicon JSON (`packages/zsh-lexicon/scripts/resolver-fixture.ts`), replayed in-crate by `crates/zshref/src/resolver.rs`.
 
 The mirror is accepted because it is bounded — it changes only with categories or normalization rules, and drifts visibly against the fixture (principle: `docs/principles.md` §"Cross-project structure"). Rejected ways to remove it:
 

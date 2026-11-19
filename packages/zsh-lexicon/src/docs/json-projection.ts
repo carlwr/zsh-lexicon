@@ -1,4 +1,4 @@
-// MIRRORED-IN: zshref-rs/src/lexicon.rs
+// MIRRORED-IN: crates/zshref/src/lexicon.rs
 
 import { isEmpty } from "@carlwr/typescript-extra"
 

@@ -46,7 +46,7 @@ export function identity<K extends DocCategory>(
   return { category: cat, id, display: display ?? id }
 }
 
-// MIRRORED-IN: zshref-rs/src/tools/schema.rs
+// MIRRORED-IN: crates/zshref/src/tools/schema.rs
 /** `DocRecordBase.id`: printable ASCII, no whitespace, non-empty. */
 export const idPattern: RegExp = /^[\x21-\x7E]+$/
 /** `DocRecordBase.display`: printable ASCII, non-empty. */

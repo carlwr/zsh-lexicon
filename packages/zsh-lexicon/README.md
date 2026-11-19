@@ -92,7 +92,7 @@ One-shot lookup, as a CLI would do it (fresh process, wall clock; bare `node -e 
 
 ## See also
 
-- [`zshref`](https://github.com/carlwr/zsh-lexicon/tree/main/zshref-rs#readme) — single-file executable Rust CLI, and the same reference as a Model Context Protocol server.
+- [`zshref`](https://github.com/carlwr/zsh-lexicon/tree/main/crates/zshref#readme) — single-file executable Rust CLI, and the same reference as a Model Context Protocol server.
 - [`better-zsh`](https://github.com/carlwr/zsh-lexicon/tree/main/packages/vscode-better-zsh) — VS Code extension.
 - [`docs/design.md`](https://github.com/carlwr/zsh-lexicon/blob/main/docs/design.md) — architectural rationale.
 

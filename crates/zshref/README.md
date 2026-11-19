@@ -84,8 +84,8 @@ git clone https://github.com/carlwr/zsh-lexicon
 cd zsh-lexicon
 corepack enable     # Node 25+ no longer bundles corepack: first `npm install -g corepack`
 pnpm install --frozen-lockfile
-make cli            # release binary at zshref-rs/target/release/zshref
-(cd zshref-rs && cargo build --release --features mcp)   # adds target/release/zshref-mcp
+make cli            # release binary at crates/zshref/target/release/zshref
+(cd crates/zshref && cargo build --release --features mcp)   # adds target/release/zshref-mcp
 ```
 
 Homebrew distribution is also planned, via the `carlwr/tap` tap. Once released, install via:

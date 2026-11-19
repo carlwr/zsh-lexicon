@@ -46,11 +46,12 @@ fn main() {
         json_dir: manifest.join("data/json"),
         fixture: manifest.join("data/resolver-fixture.json"),
     };
+    // The crate's place in the monorepo: `crates/zshref/`.
+    let artifacts = manifest.join("../../packages/zsh-lexicon/artifacts");
     let monorepo = Source {
         name: "monorepo",
-        json_dir: manifest.join("../packages/zsh-lexicon/artifacts/json"),
-        fixture: manifest
-            .join("../packages/zsh-lexicon/artifacts/resolver-fixture/resolver-fixture.json"),
+        json_dir: artifacts.join("json"),
+        fixture: artifacts.join("resolver-fixture/resolver-fixture.json"),
     };
 
     // Re-detect on the override changing or a present
@@ -87,14 +88,14 @@ fn data_source<'s>(manifest: &Path, vendored: &'s Source, monorepo: &'s Source) 
             if vendored.index().exists() {
                 vendored
             } else {
-                panic_with_help(manifest)
+                panic_with_help(manifest, vendored, monorepo)
             }
         }
         Ok(s) if s == monorepo.name => {
             if monorepo.index().exists() {
                 monorepo
             } else {
-                panic_with_help(manifest)
+                panic_with_help(manifest, vendored, monorepo)
             }
         }
         Ok(s) => panic!("ZSHREF_DATA_SOURCE must be vendored or monorepo, got {s:?}"),
@@ -102,7 +103,7 @@ fn data_source<'s>(manifest: &Path, vendored: &'s Source, monorepo: &'s Source) 
         // Absent in a published `.crate`, which falls through to vendored.
         Err(_) if monorepo.index().exists() => monorepo,
         Err(_) if vendored.index().exists() => vendored,
-        Err(_) => panic_with_help(manifest),
+        Err(_) => panic_with_help(manifest, vendored, monorepo),
     }
 }
 
@@ -124,7 +125,7 @@ fn check_version(source: &Source) {
     );
 }
 
-fn panic_with_help(manifest: &Path) -> ! {
+fn panic_with_help(manifest: &Path, vendored: &Source, monorepo: &Source) -> ! {
     panic!(
         "\nzshref: no data source found. Expected one of:\n\
            - {vendored} (vendored mode; run `make vendor` from the repo root)\n\
@@ -132,9 +133,7 @@ fn panic_with_help(manifest: &Path) -> ! {
          \n\
          See {design} for the full design.\n",
         design = manifest.join("docs/data-sync.md").display(),
-        vendored = manifest.join("data/json").display(),
-        monorepo = manifest
-            .join("../packages/zsh-lexicon/artifacts/json")
-            .display(),
+        vendored = vendored.json_dir.display(),
+        monorepo = monorepo.json_dir.display(),
     );
 }

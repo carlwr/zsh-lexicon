@@ -1,4 +1,4 @@
-// MIRRORED-IN: zshref-rs/src/resolver.rs
+// MIRRORED-IN: crates/zshref/src/resolver.rs
 
 import type { OptFlagSign } from "./types.ts"
 
