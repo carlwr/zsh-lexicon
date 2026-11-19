@@ -18,12 +18,12 @@ mod output;
 mod resolver;
 
 /// The project's home as the binaries' `--help` prints it, scheme-less: the
-/// one Rust site a repo rename touches. A macro, not a `const`: `concat!`
-/// takes literals only.
+/// one Rust site a repo or directory rename touches. A macro, not a `const`:
+/// `concat!` takes literals only.
 #[doc(hidden)]
 #[macro_export]
 macro_rules! project_url {
     () => {
-        "github.com/carlwr/zshref"
+        "github.com/carlwr/zsh-lexicon/tree/main/zshref-rs"
     };
 }

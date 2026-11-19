@@ -74,7 +74,7 @@ Vulnerability reports: `SECURITY.md` at the repository root.
 ## See also
 
 - [`@carlwr/zsh-lexicon`](https://github.com/carlwr/zsh-lexicon/tree/main/packages/zsh-lexicon) — the structured-reference library the extension consumes.
-- [`zshref`](https://github.com/carlwr/zshref) — single-file executable Rust CLI over the same reference, and a Model Context Protocol server for agents.
+- [`zshref`](https://github.com/carlwr/zsh-lexicon/tree/main/zshref-rs#readme) — single-file executable Rust CLI over the same reference, and a Model Context Protocol server for agents.
 - [`zsh-lexicon` on GitHub](https://github.com/carlwr/zsh-lexicon) — source, issues, companion packages.
 
 ## License

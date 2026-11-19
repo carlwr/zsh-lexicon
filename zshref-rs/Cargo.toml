@@ -8,7 +8,7 @@ publish = true
 
 authors = ["Carl (carlwr)"]
 repository = "https://github.com/carlwr/zsh-lexicon"
-homepage = "https://github.com/carlwr/zsh-lexicon"
+homepage = "https://github.com/carlwr/zsh-lexicon/tree/main/zshref-rs#readme"
 readme = "README.md"
 keywords = ["zsh", "shell", "cli", "reference", "mcp"]
 categories = ["command-line-utilities", "development-tools"]

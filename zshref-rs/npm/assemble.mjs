@@ -75,6 +75,14 @@ const archives = readdirSync(opts.archives, { recursive: true })
 if (archives.length === 0)
   throw new Error(`no zshref-<target> archives in ${opts.archives}`)
 
+// the crate's place in the repo: npm's field for a package below the repo root
+const directory = execFileSync("git", ["rev-parse", "--show-prefix"], {
+  cwd: crate,
+  encoding: "utf8",
+})
+  .trim()
+  .replace(/\/$/, "")
+
 const stub = (mod, bin) =>
   `#!/usr/bin/env node\nrequire(${JSON.stringify(mod)})(${JSON.stringify(bin)})\n`
 const shared = {
@@ -82,7 +90,7 @@ const shared = {
   description: meta.description,
   license: meta.license,
   // the form npm normalizes to; anything else draws a publish warning
-  repository: { type: "git", url: `git+${meta.repository}.git` },
+  repository: { type: "git", url: `git+${meta.repository}.git`, directory },
   homepage: meta.homepage,
   keywords: meta.keywords,
   // Ancient API surface only; MCP clients ship old Nodes. Not tied to the

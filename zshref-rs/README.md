@@ -2,7 +2,7 @@
 
 # zshref
 
-> **Status: pre-release (alpha).** This crate is developed inside the [`zsh-lexicon`](https://github.com/carlwr/zsh-lexicon) monorepo and will be extracted to its own repository on first stable release. Stable install docs are not live yet; alpha crates.io packages exist for packaging validation.
+> **Status: pre-release (alpha).** This crate is developed inside the [`zsh-lexicon`](https://github.com/carlwr/zsh-lexicon) monorepo. Stable install docs are not live yet; alpha crates.io packages exist for packaging validation.
 
 A reference for zsh syntax, as a command-line tool and as a [Model Context Protocol](https://modelcontextprotocol.io) server. Ask what a token is, search the manual, or print the docs for a known element — from a terminal, a script, an agent pipeline, or an MCP-aware client. CLI tool subcommands emit one compact JSON line on stdout per invocation (pass `--pretty` for indented multi-line) — pipe into `jq` for projection. `zshref info` emits pretty-printed JSON; `zshref completions` emits its shell script on stdout instead.
 
@@ -68,7 +68,7 @@ npx -y @carlwr/zshref-mcp        # the MCP server, no install (see "MCP server" 
 cargo binstall zshref@0.1.0-alpha.4
 ```
 
-The npm packages carry every platform's binaries; the `zshref` / `zshref-mcp` commands they install are small launchers that spawn the bundled binary for the current platform, and nothing else — the binaries themselves spawn no subprocess. Install one of the two packages globally, not both: both own `zshref-mcp`. Archives and checksums: the [releases page](https://github.com/carlwr/zshref/releases).
+The npm packages carry every platform's binaries; the `zshref` / `zshref-mcp` commands they install are small launchers that spawn the bundled binary for the current platform, and nothing else — the binaries themselves spawn no subprocess. Install one of the two packages globally, not both: both own `zshref-mcp`. Archives and checksums: the [releases page](https://github.com/carlwr/zsh-lexicon/releases).
 
 From crates.io, with a stable Rust toolchain (for alpha package testing only, while no stable release exists):
 
@@ -88,11 +88,10 @@ make cli            # release binary at zshref-rs/target/release/zshref
 (cd zshref-rs && cargo build --release --features mcp)   # adds target/release/zshref-mcp
 ```
 
-Homebrew distribution is also planned; the formula under [`Formula/zshref.rb`](./Formula/zshref.rb) is a pre-release scaffold. Once released, install via:
+Homebrew distribution is also planned, via the `carlwr/tap` tap. Once released, install via:
 
 ```sh
-brew tap carlwr/zshref https://github.com/carlwr/zshref.git
-brew install zshref
+brew install carlwr/tap/zshref
 ```
 
 ## Usage

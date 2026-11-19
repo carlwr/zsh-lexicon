@@ -24,7 +24,6 @@ No shell execution, no subprocess, no network, no filesystem, no environment rea
 ## Status and roadmap
 
 - Pre-release alphas are cut from this monorepo for CI/infra exercise.
-- The Rust crate is planned to move to its own repo; `zshref-rs/` already builds standalone via a dual-mode `build.rs` (auto-detect monorepo source vs. vendored `data/`).
 - A first non-alpha release bundle is planned; no date committed.
 
 ## Contributing
