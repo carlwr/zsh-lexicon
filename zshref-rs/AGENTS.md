@@ -2,7 +2,7 @@
 
 The `zshref` CLI and, behind the `mcp` feature, the `zshref-mcp` MCP server: one tool set, owned here (`src/tools.rs`). Semantic search is `zsh-lexicon-web`'s (`packages/zsh-lexicon-web/`); this crate has none.
 
-Crate rationale: `DESIGN.md`; CLI output rules: `CLI-POLICY.md` — both here, not the root's.
+Crate rationale: `docs/design.md`; CLI output rules: `docs/cli-policy.md` — both here, not the root's.
 
 ## MSRV
 
@@ -10,7 +10,7 @@ One floor: `rust-version` in `Cargo.toml` — what `cargo install zshref` needs,
 
 ## TS↔Rust mirror discipline
 
-`// MIRRORED-IN:` (TS) ↔ `// MIRROR-OF:` (Rust) mark what this crate re-implements from `packages/zsh-lexicon/` (`rg 'MIRROR-OF'`): orientation only, no checker; rename rule: root `AGENTS.md`. A resolver change lands TS-side first; the conformance fixture (`DATA-SYNC.md`) then names every input the Rust side must follow.
+`// MIRRORED-IN:` (TS) ↔ `// MIRROR-OF:` (Rust) mark what this crate re-implements from `packages/zsh-lexicon/` (`rg 'MIRROR-OF'`): orientation only, no checker; rename rule: root `AGENTS.md`. A resolver change lands TS-side first; the conformance fixture (`docs/data-sync.md`) then names every input the Rust side must follow.
 
 ## Iteration
 
@@ -48,4 +48,4 @@ cargo build --all-features && cargo test --all-features
 
 ## npm packaging
 
-`npm/` — not part of the `.crate`. Design and release mechanics: `DISTRIBUTION.md`. Formatted and linted by the root `pnpm format` / `pnpm lint`; the generated `bin/` stubs and `package.json` never enter the tree.
+`npm/` — not part of the `.crate`. Design and release mechanics: `docs/distribution.md`. Formatted and linted by the root `pnpm format` / `pnpm lint`; the generated `bin/` stubs and `package.json` never enter the tree.

@@ -3,7 +3,7 @@ audience: maintainer
 read-when: renames, refactors, design decisions, research-agent rules, shell discipline, git history rewrites
 ---
 
-# WORKFLOW.md
+# Workflow
 
 ## Shell commands and `cd`
 

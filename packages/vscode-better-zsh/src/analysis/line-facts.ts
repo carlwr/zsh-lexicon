@@ -34,8 +34,7 @@ const TRANSPARENT: ReadonlySet<string> = new Set([
 //     past tests pinned this as load-bearing for command-position features.
 //
 // The semantic-token provider paints reserved words more broadly (it consumes
-// `lexicon.reserved_word` directly). See DESIGN.md §"Reserved word: an
-// enumeration-primary doc category".
+// `lexicon.reserved_word` directly).
 //
 // Exact membership is pinned by a lock-in test under `src/test/analysis/`.
 const KEYWORD_HEADS: ReadonlySet<string> = new Set([

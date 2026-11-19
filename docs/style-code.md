@@ -3,7 +3,7 @@ audience: maintainer
 read-when: writing TypeScript or shell scripts
 ---
 
-# STYLE-CODE.md
+# Code style
 
 Code style for TypeScript and shell scripts. Project-agnostic principles; project-specific addenda live in `AGENTS.md`.
 
@@ -33,14 +33,14 @@ second line\
 
 ## Comments
 
-Mandatory before editing or reviewing any comment: `STYLE-MD.md` §"Content: code is the ground truth".
+Mandatory before editing or reviewing any comment: `docs/style-md.md` §"Content: code is the ground truth".
 
 ## Conciseness
 
 - Prefer short identifiers.
 - Collapse repeated patterns into shared helpers.
 - Decide conciseness consciously; a mild clarity tradeoff may still be worth it.
-- Metric and line-count bias: `STYLE-MD.md` §"Conciseness".
+- Metric and line-count bias: `docs/style-md.md` §"Conciseness".
 
 ## Single source of truth
 

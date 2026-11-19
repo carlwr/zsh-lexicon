@@ -17,8 +17,7 @@ function publicSubpaths(pkgDir: string): string[] {
 }
 
 /**
- * Package-root entry behind a subpath: `.` → `index`, `./render` → `render`
- * (`STYLE-CODE.md` §"Module layout").
+ * Package-root entry behind a subpath: `.` → `index`, `./render` → `render`.
  */
 function entryName(subpath: string): string {
   return subpath === "." ? "index" : withoutFirstSubstring("./", subpath)

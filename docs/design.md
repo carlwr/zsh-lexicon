@@ -9,8 +9,8 @@ read-when: subsystem rationale and design decisions
 
 Layered docs:
 
-- `PRINCIPLES.md` — cross-cutting principles
-- `zshref-rs/DESIGN.md` — the `zshref` crate's own rationale
+- `docs/principles.md` — cross-cutting principles
+- `zshref-rs/docs/design.md` — the `zshref` crate's own rationale
 - `AGENTS.md` — contributor conventions entry point; links into topic files for universal patterns
 - maintainer-doc index: `./scripts/list-maintainer-docs`
 
@@ -55,7 +55,7 @@ Coarse, potentially overlapping annotations about user zsh code: the `Fact` unio
 
 The term "fact" is load-bearing: facts are what the analyzer *asserts*, not a complete description. Analysis is best-effort and partial; no claim of exhaustiveness.
 
-Knows nothing about doc records or rendering; imports nothing from zsh-lexicon (the extension's seam test). Payload rule: `PRINCIPLES.md` §"Facts and docs: asymmetric, not parallel".
+Knows nothing about doc records or rendering; imports nothing from zsh-lexicon (the extension's seam test). Payload rule: `docs/principles.md` §"Facts and docs: asymmetric, not parallel".
 
 ### C. Markdown Rendering (`src/render/`)
 
@@ -99,7 +99,7 @@ Two phases:
 
 One brand for every category — none is a literal union. The analyzer's closed precommand list (`PrecmdName`, extension `src/analysis/`) is its own vocabulary — a mirror, pinned equal to the lexicon by a lock-in test.
 
-Public-surface rule (`STYLE-CODE.md` §"Types"): a brand crosses the surface only where the surface mints and requires it — here, lexicon identity alone; every other string field is plain.
+Public-surface rule (`docs/style-code.md` §"Types"): a brand crosses the surface only where the surface mints and requires it — here, lexicon identity alone; every other string field is plain.
 
 ### No intermediate brand
 
@@ -154,7 +154,7 @@ Not an absolute ban. A post-refactor convenience wrapper is fine as a conscious 
 Raised by API reviews; each a decision, not an oversight:
 
 - **JSON assets in the registry package** (schema, index)
-  - the JSON side is one unit — data, index, schema, fixture — versioned by the release tag (`PACKAGING.md`)
+  - the JSON side is one unit — data, index, schema, fixture — versioned by the release tag (`docs/packaging.md`)
   - a part of it in the tarball: a second channel, with a version pin between the two
   - an in-process consumer holds the lexicon the JSON is projected from
 - **The JSON build's in-process view** (lexicon content hash, the release files' TS types)
@@ -193,7 +193,7 @@ Per-category resolver table:
 
 Authoritative homes:
 
-- contract + identity/feedback split — PRINCIPLES.md
+- contract + identity/feedback split — docs/principles.md
 - JSDoc on `ResolverFeedback` / `ResolvedHit`, zsh-lexicon `src/docs/resolver.ts`:
   - kinds
   - where feedback rides (the `resolve` hit)
@@ -218,7 +218,7 @@ Category-level metadata — labels, orderings, notes needed to interpret a categ
 
 ### Identity per record, display separately
 
-Every record carries `category`, `id` and `display` as fields (`DocRecordBase<K>`; `PRINCIPLES.md` §"Category types"), not behind accessors. Where `display` diverges from `id`: its JSDoc in `zsh-lexicon`; the default is the id, the divergent extractors pass the manual's form explicitly (`identity` in `brands.ts`).
+Every record carries `category`, `id` and `display` as fields (`DocRecordBase<K>`; `docs/principles.md` §"Category types"), not behind accessors. Where `display` diverges from `id`: its JSDoc in `zsh-lexicon`; the default is the id, the divergent extractors pass the manual's form explicitly (`identity` in `brands.ts`).
 
 Ids are **shell-safe slugs**; `display` and `sig` keep the human-readable form (spaces, placeholders). Patterns: `brands.ts`, pinned in the released schema; enforced by `packages/zsh-lexicon/src/test/lexicon-ascii.test.ts`.
 
@@ -274,7 +274,7 @@ Per-type details and the three-way distinction — JSDoc in `zsh-lexicon`:
 
 ### Reserved word: an enumeration-primary doc category
 
-`reserved_word` is the enumeration-primary category (see PRINCIPLES.md). One record type does three jobs:
+`reserved_word` is the enumeration-primary category (see docs/principles.md). One record type does three jobs:
 
 - **Enumeration source** — lexicon map is the authoritative reserved-word list for:
   - completions
@@ -310,7 +310,7 @@ The manual's header groups (`(^B ESC-[D) (unbound) (unbound)`) are per-keymap de
 
 ### `subKind` is structural per category
 
-A category's record type declares `subKind` with a closed literal union, or none (`DocRecordBase` JSDoc in `zsh-lexicon`); like `category`, it is read as a field — under a generic `K`, a `"subKind" in rec` check narrows. Presence and vocabulary follow from the type: the released schema requires the field with the union's enum, or forbids it, per category — no lexicon scan, no post-processing. Same call as for `id` (PRINCIPLES.md §"The structural identity invariant"); the dropped shape: a per-category name behind an accessor table plus a generated JSON copy.
+A category's record type declares `subKind` with a closed literal union, or none (`DocRecordBase` JSDoc in `zsh-lexicon`); like `category`, it is read as a field — under a generic `K`, a `"subKind" in rec` check narrows. Presence and vocabulary follow from the type: the released schema requires the field with the union's enum, or forbids it, per category — no lexicon scan, no post-processing. Same call as for `id` (docs/principles.md §"The structural identity invariant"); the dropped shape: a per-category name behind an accessor table plus a generated JSON copy.
 
 Every declared literal occurs in the lexicon: `packages/zsh-lexicon/src/test/json-schema.test.ts`.
 
@@ -323,14 +323,14 @@ Manual provenance is not a record field: where the heading varies within a categ
 Vendored `.yo` is consumed three ways:
 
 - **`loadLexicon()`** — runtime parse into `Lexicon`; lazy per category, cached (its JSDoc)
-  - rendering measured cheap for the whole lexicon, so it stays unmemoized — PRINCIPLES.md §"Cost and laziness"
+  - rendering measured cheap for the whole lexicon, so it stays unmemoized — docs/principles.md §"Cost and laziness"
 - **Pre-parsed JSON** — same records; markdown bodies pre-rendered at build time
   - one record file keyed by category beside a versioned index (`JsonIndex` JSDoc); `dataHash` is the record file's SHA-256
-  - distribution: `PACKAGING.md`
+  - distribution: `docs/packaging.md`
   - _schema:_ one bundle, generated from the TS types plus the lexicon (`packages/zsh-lexicon/scripts/schemas.ts`, written by the package build)
     - record and id `$defs` named by category (`recordsSchemaDefs` in `json-artifacts.ts`); auxiliary ones by TS type (`AlternateForm`, …) — renaming one is a schema change
     - draft 2020-12, as the crate's tool schemas
-    - precision posture: PRINCIPLES.md §"Schema precision when schemas are co-released"
+    - precision posture: docs/principles.md §"Schema precision when schemas are co-released"
 - **Raw Yodl** — not an export subpath; bundlers ship it through the `/assets` subpath (`copyRuntimeZshData`, `runtimeZshDataPaths`).
 
 Per-category renderers are internal; public entry is `renderRecord`.
@@ -342,13 +342,13 @@ The JSON stays in zsh-lexicon — a projection of its types, released on its tag
 
 ### Why the library parses at runtime
 
-The TS API is the root; the JSON is a derived view of it, for consumers that cannot run the TypeScript — renderer and resolvers included (e.g. Rust `include_bytes!`). Library consumers parse the vendored Yodl at runtime; loading a pre-parsed lexicon instead was considered and rejected — the instance of PRINCIPLES.md §"Cross-project structure" (derived data, committed files) and §"Cost and laziness":
+The TS API is the root; the JSON is a derived view of it, for consumers that cannot run the TypeScript — renderer and resolvers included (e.g. Rust `include_bytes!`). Library consumers parse the vendored Yodl at runtime; loading a pre-parsed lexicon instead was considered and rejected — the instance of docs/principles.md §"Cross-project structure" (derived data, committed files) and §"Cost and laziness":
 
 - the vendored `.yo` is committed; a generated lexicon is not — tests and scripts run on an unbuilt checkout, so the runtime would need a parse fallback
 - the projection is a seam: the JSON may lag or omit without touching the runtime API
 - parse cost is met by per-category laziness, not by shipping a different form
 
-Parser and renderer are layered: the parser may capture structure the renderer chooses to flatten or compose. Rendered markdown is the byte-equal contract surface; record-shape changes (new typed fields) stay below it until they cross into the wire schema. Records carry prose twice — typed fields for routing, `_mdBody` for reading — roughly a third to a half of the payload; accepted. Cross-cutting "records are self-contained" framing: PRINCIPLES.md.
+Parser and renderer are layered: the parser may capture structure the renderer chooses to flatten or compose. Rendered markdown is the byte-equal contract surface; record-shape changes (new typed fields) stay below it until they cross into the wire schema. Records carry prose twice — typed fields for routing, `_mdBody` for reading — roughly a third to a half of the payload; accepted. Cross-cutting "records are self-contained" framing: docs/principles.md.
 
 ### Why zsh-lexicon is npm-only
 
@@ -373,7 +373,7 @@ The Rust crate re-implements one behaviour — the resolvers; the rest it consum
 - Markers (`// MIRRORED-IN:` / `// MIRROR-OF:`) on the mirrored pairs (`rg 'MIRRORED-IN|MIRROR-OF'`): orientation, no mechanical check.
 - Resolver conformance: the fixture zsh-lexicon releases beside the lexicon JSON (`packages/zsh-lexicon/scripts/resolver-fixture.ts`), replayed in-crate by `zshref-rs/src/resolver.rs`.
 
-The mirror is accepted because it is bounded — it changes only with categories or normalization rules, and drifts visibly against the fixture (principle: `PRINCIPLES.md` §"Cross-project structure"). Rejected ways to remove it:
+The mirror is accepted because it is bounded — it changes only with categories or normalization rules, and drifts visibly against the fixture (principle: `docs/principles.md` §"Cross-project structure"). Rejected ways to remove it:
 
 - resolvers as data: a table or pattern format expressive enough for the template categories is a custom DSL, and specifying, testing and tooling one costs more than a bounded dual implementation
 - zsh-lexicon in Rust: Yodl parsing and the data model are substantial, the extension needs TS, the package's audience (IDE- and agent-adjacent tooling) is TS-centric, and the deliverable to Rust is already data
@@ -389,7 +389,7 @@ The mirror is accepted because it is bounded — it changes only with categories
 - order, per-entry rationale: inline comments on `classifyOrderTuple`, `taxonomy.ts`
 - admission — a category declining a scoped hit that is no token on its own (history word designators, modifiers): `walkAdmits`, zsh-lexicon `src/docs/resolver.ts`
 
-Owned by zsh-lexicon, not the tools: order and admission are lexicon properties (PRINCIPLES.md §"Push decisions downstream"); a walk re-derived per consumer had drifted — one applied the history rule, one did not. Callers: `zsh_docs` with `category` omitted, zsh-lexicon-web's lookup canonicalizer. Rust reads order from `index.json`, mirrors admission as code; the fixture's `walk` section pins both.
+Owned by zsh-lexicon, not the tools: order and admission are lexicon properties (docs/principles.md §"Push decisions downstream"); a walk re-derived per consumer had drifted — one applied the history rule, one did not. Callers: `zsh_docs` with `category` omitted, zsh-lexicon-web's lookup canonicalizer. Rust reads order from `index.json`, mirrors admission as code; the fixture's `walk` section pins both.
 
 ## Vendored `.yo` files are domain invariants
 

@@ -177,7 +177,7 @@ fn batch_example(tool_set: &ToolSet, lexicon: &Lexicon) -> String {
     // Real output is compact JSONL — too long to fit indented at 80 cols.
     // Pretty-print (and `| jq`) so body lines are short; the explicit
     // continuation keeps the prompt line itself <80
-    // (CLI-POLICY.md wrapping-may-not-lose-indent).
+    // (docs/cli-policy.md wrapping-may-not-lose-indent).
     let pretty = serde_json::to_string_pretty(&envelope).expect("envelope serializes");
     shell_examples(&[ShellExample {
         prompt: r#"echo '{"tool":"zsh_search","input":{"query":"autolo","limit":1}}'"#,

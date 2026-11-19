@@ -38,11 +38,11 @@ An arrow reads "consumes, pinned by version"; its label is the mechanism:
 ```
 
 - workspace link: pnpm `workspace:*` onto the upstream's built `dist/`; freshness: `scripts/build/README.md`
-- release assets: zsh-lexicon's release tarballs, packed and vendored by `make vendor` — `zshref-rs/DATA-SYNC.md`
+- release assets: zsh-lexicon's release tarballs, packed and vendored by `make vendor` — `zshref-rs/docs/data-sync.md`
 - `zsh-lexicon-web` consumes `zsh-lexicon` at build time only — the index build; the browser bundle is `zsh-lexicon`-free (`packages/zsh-lexicon-web/AGENTS.md`)
 - zsh-lexicon is the only producer; the in-repo consumers are leaves with no consumer of their own
 
-Invariants — what the shape was chosen for, and the constraint on any change to it (principles: `PRINCIPLES.md` §"Cross-project structure"):
+Invariants — what the shape was chosen for, and the constraint on any change to it (principles: `docs/principles.md` §"Cross-project structure"):
 
 - one root of truth; every edge a pinned version of a standard mechanism
 - leaves have no consumers: no freshness oracles, no fingerprints

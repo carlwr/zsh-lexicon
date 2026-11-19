@@ -46,7 +46,7 @@ All pinned:
 - **`@carlwr/zsh-lexicon`** at build time — `workspace:*`; lexicon, taxonomy, resolver
   - through its declared export subpaths only, never a file inside the package (`tests/import-fence.test.ts`)
   - its release JSON feeds the Rust crate, not this package
-  - every script reading it carries a `pre*` hook -> `upstream-ready.mjs ensure` (`PACKAGING.md`; `ZL_SKIP_UPSTREAM`: root `AGENTS.md`)
+  - every script reading it carries a `pre*` hook -> `upstream-ready.mjs ensure` (root `docs/packaging.md`; `ZL_SKIP_UPSTREAM`: root `AGENTS.md`)
   - the browser bundle is zsh-lexicon-free: the index carries each record's markdown body
 - **Hugging Face Hub** at runtime — the browser embedder downloads the model on first search
   - model id and revision (a commit SHA): `MODEL_ID`, `MODEL_REVISION` in `nlp/core/types.ts`; `scripts/fetch-model` repeats both, drift-checked by a test
@@ -73,7 +73,7 @@ All gitignored:
 
 ## Tests
 
-The package-specific part of `TESTING.md`:
+The package-specific part of root `docs/testing.md`:
 
 - `pnpm test` is model-free by default: a test needing a gitignored input (`STAGED` in `nlp/node/paths.ts`) skips via `artifactGate` (`tests/_helpers.ts`)
   - `pnpm run test --reporter=verbose` prints the reason (bare `pnpm test` hands `--reporter` to pnpm itself)
@@ -110,11 +110,11 @@ Parity asserts equality (the ranker is deterministic); sanity a tolerance (the e
 ## Reporters
 
 - `pnpm nlp:*` in `package.json`; each `--help` is its usage
-- the tuning trio: `nlp/NLP.md`
+- the tuning trio: `nlp/docs/nlp.md`
 
 ## Holdout hygiene
 
-`nlp/NLP.md` — binding for every edit under `nlp/`.
+`nlp/docs/nlp.md` — binding for every edit under `nlp/`.
 
 ## Routes
 
@@ -126,7 +126,7 @@ One route, `src/routes/+page.svelte`: the search, or the record its URL links to
 - neither link part is a declared-stable contract: a zsh-lexicon change to either breaks deployed links, which render not-found
   - a category rename surfaces as `categories.json` drift
   - an id change surfaces only as lookup-golden drift (`UPDATE_LOOKUP_*`), for the ids those pin
-  - not a link-only name per category: a second name for each, in a category-indexed table zsh-lexicon would own (root `DESIGN.md`); guards category renames only
+  - not a link-only name per category: a second name for each, in a category-indexed table zsh-lexicon would own (root `docs/design.md`); guards category renames only
   - forwarding: deferred to the first breaking change after deploy
     - try first: on not-found, match the id alone across categories — covers category renames without an old-to-new table
   - a deployed-ids guard: deferred to the deploy
@@ -166,6 +166,6 @@ One route, `src/routes/+page.svelte`: the search, or the record its URL links to
 
 ## See also
 
-- `nlp/NLP.md` — holdout rules, eval architecture
-- `nlp/nlp-observations.md` — non-authoritative field notes
-- `REPO-SHAPE.md` (repo root) — arrow diagram
+- `nlp/docs/nlp.md` — holdout rules, eval architecture
+- `nlp/docs/observations.md` — non-authoritative field notes
+- root `docs/repo-shape.md` — arrow diagram

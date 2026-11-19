@@ -1,6 +1,6 @@
 // The item-level tune diff of the committed tuning against the
 // `ZL_TUNE_BASE` candidate — the names behind a sweep delta. Holdout is
-// never printed (NLP.md).
+// never printed.
 
 import { composedBase, loadBench, renderTuneDiff } from "../nlp/node/eval/sweep"
 import { reporterAssets, scriptFlags, tuneBaseSpec } from "./_args"

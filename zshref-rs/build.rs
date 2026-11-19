@@ -9,7 +9,7 @@
 //! `index.json.version` is checked here first, so a stale data source fails
 //! the build on the version rather than on whichever field moved.
 //!
-//! Design: DATA-SYNC.md.
+//! Design: docs/data-sync.md.
 
 use std::{
     env, fs,
@@ -118,7 +118,7 @@ fn check_version(source: &Source) {
     assert_eq!(
         version,
         INDEX_VERSION,
-        "{} is version {version}; this crate reads version {INDEX_VERSION} — stale {} data, or a crate behind the format (DATA-SYNC.md)",
+        "{} is version {version}; this crate reads version {INDEX_VERSION} — stale {} data, or a crate behind the format (docs/data-sync.md)",
         index.display(),
         source.name
     );
@@ -130,7 +130,8 @@ fn panic_with_help(manifest: &Path) -> ! {
            - {vendored} (vendored mode; run `make vendor` from the repo root)\n\
            - {monorepo} (monorepo mode; run `make cli` from the repo root)\n\
          \n\
-         See DATA-SYNC.md (crate root) for the full design.\n",
+         See {design} for the full design.\n",
+        design = manifest.join("docs/data-sync.md").display(),
         vendored = manifest.join("data/json").display(),
         monorepo = manifest
             .join("../packages/zsh-lexicon/artifacts/json")

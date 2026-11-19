@@ -15,8 +15,10 @@ USAGE:
 OPTIONS:
 
   --quiet, -q
-    on first malformed frontmatter (audience: maintainer with missing
-    or empty 'read-when:'), print and exit non-zero
+    on the first defective maintainer-audience file, print and exit
+    non-zero:
+      - missing or empty 'read-when:'
+      - outside a docs/ dir, or a name not in lowercase kebab-case
     suppresses normal output
 
   (default)
@@ -58,6 +60,12 @@ handle-file() {
   if [[ -z $when ]]
   then
     print -u2 -- "$me: $f: 'missing/empty 'read-when:'"
+    exit 1
+  fi
+
+  if [[ $f != (*/|)docs/* || ${f:t:r} == *[^a-z0-9-]* ]]
+  then
+    print -u2 -- "$me: $f: belongs in a docs/ dir, named in lowercase kebab-case"
     exit 1
   fi
 

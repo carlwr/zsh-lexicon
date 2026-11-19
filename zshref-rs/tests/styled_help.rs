@@ -99,7 +99,7 @@ fn explicit_help_and_version_use_stdout() {
 fn bad_input_routes_to_stderr_with_exit_2() {
     // Covers: unknown subcommand, unknown flag, missing required, missing
     // positional, bad enum. Bare invocation (`&[]`) is NOT here — it is an
-    // implicit help request (stdout + exit 0); see CLI-POLICY.md.
+    // implicit help request (stdout + exit 0); see docs/cli-policy.md.
     let cases: &[&[&str]] = &[
         &["nope"],
         &["--bogus"],
@@ -126,7 +126,7 @@ fn bad_input_routes_to_stderr_with_exit_2() {
 
 #[test]
 fn bare_invocation_emits_full_help_to_stdout() {
-    // CLI-POLICY.md: bare invocation is an implicit help request. Output
+    // docs/cli-policy.md: bare invocation is an implicit help request. Output
     // is byte-identical to `--help` so all `--help` invariants apply for free.
     let bare = explicit_stdout(&[], &[("NO_COLOR", "1")]);
     let explicit = explicit_stdout(&["--help"], &[("NO_COLOR", "1")]);
@@ -233,7 +233,7 @@ fn root_help_documents_color_environment_and_pretty_default() {
     for sub in ["docs", "search", "list", "schema"] {
         let help =
             String::from_utf8(explicit_stdout(&[sub, "--help"], &[])).expect("help is utf-8");
-        // Case-insensitive per CLI-POLICY.md ("Testing discipline").
+        // Case-insensitive per docs/cli-policy.md ("Testing discipline").
         assert!(
             help.to_lowercase().contains("default: compact json"),
             "zshref {sub} --help must state the --pretty default:\n{help}"

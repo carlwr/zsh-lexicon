@@ -212,7 +212,7 @@ const crossCategoryInputs: Inputs = [
   "-e",
   "-J",
   "+J",
-  // documented tie-breaks of the `classifyOrder` walk (DESIGN.md)
+  // documented tie-breaks of the `classifyOrder` walk
   "nocorrect",
   "noglob",
   "typeset",

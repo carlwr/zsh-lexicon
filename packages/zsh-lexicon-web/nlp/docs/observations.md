@@ -1,7 +1,7 @@
 # nlp observations
 
 > **Non-authoritative field notes — may be stale the moment you read them.**
-> Snapshots of empirical behaviour, not rules. Rules live in `NLP.md`. Re-measure
+> Snapshots of empirical behaviour, not rules. Rules live in `nlp/docs/nlp.md`. Re-measure
 > before trusting any bullet; delete bullets that no longer hold.
 
 Method: BGE-small, ON/OFF re-embed A/B (synonyms baked vs empty) + manual query probes (2026-05-30).

@@ -88,7 +88,7 @@ cli-npm-check: artifacts
 
 # The release workflow under act, dry-run, on the one row act can build here
 # (Apple Silicon runs arm64 containers): every job through both --dry-run
-# publishes. Docs: zshref-rs/DISTRIBUTION.md.
+# publishes. Docs: zshref-rs/docs/distribution.md.
 .PHONY:\
 cli-release-act
 cli-release-act:

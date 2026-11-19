@@ -1,6 +1,6 @@
-// The lexicon-derived "mechanical" sentence set (NLP.md §"Eval architecture",
-// layer B): every entry is generated from the lexicon, so the set is large
-// and free, unlike the hand-curated fixture. Two registers:
+// The lexicon-derived "mechanical" sentence set (nlp/docs/nlp.md §"Eval
+// architecture", layer B): every entry is generated from the lexicon, so the
+// set is large and free, unlike the hand-curated fixture. Two registers:
 //
 // - terse decorated forms — the lookup contract's decorated phrasings
 //   (`option AUTO_CD`, `setopt builtin`, …), reused verbatim;

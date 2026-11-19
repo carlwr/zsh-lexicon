@@ -1,5 +1,5 @@
 // The QA scoring as a report. Prints the hard-check section and the
-// summary lines only — the QA set is held out (NLP.md), so no
+// summary lines only — the QA set is held out, so no
 // per-entry line ever prints.
 
 import { renderQa, runHardChecks, scoreQaSet } from "../nlp/node/eval/qa-score"

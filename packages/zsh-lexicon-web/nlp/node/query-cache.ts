@@ -1,7 +1,7 @@
 // Query vectors kept across runs (`PATHS.queryCache`, gitignored): the eval
 // sets change only with the lexicon and the rules, so a repeat run embeds
 // little or nothing. Keyed by a hash of the exact embedded text — the file
-// holds no query, held-out ones included (NLP.md) — under an identity of the
+// holds no query, held-out ones included — under an identity of the
 // numerics (`embedderIdentity`), and dropped whole when that identity moves:
 // a stale vector is never served. Written as new vectors arrive and at
 // process exit, merged with the file (other processes write it too),

@@ -3,7 +3,7 @@ audience: maintainer
 read-when: running or writing tests
 ---
 
-# TESTING.md
+# Testing
 
 ## Posture
 

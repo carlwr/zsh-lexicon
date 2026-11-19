@@ -95,7 +95,7 @@ type RecordRef = { category: DocCategory; id: string }
 /**
  * Parity-fixture curation: branch coverage in the ranker. Order is
  * load-bearing — the fixture is positional. Queries are neutral
- * branch-exercisers, deliberately NOT drawn from any eval set (see NLP.md):
+ * branch-exercisers, deliberately NOT drawn from any eval set:
  * the fixture only snapshots ranker math, never a "correct answer", so no
  * holdout query belongs here.
  */

@@ -8,8 +8,7 @@ const lexicon = loadLexicon()
 // `cmdHeadFactsOnLine` emits a `reserved-word` fact for a token in command
 // position iff the token is in this set. The set is intentionally distinct
 // from `lexicon.reserved_word` (the zsh manual's reserved-word list); see
-// DESIGN.md §"Reserved word: an enumeration-primary doc category" and the
-// comment block above the constant in `analysis/line-facts.ts`.
+// the comment block above the constant in `analysis/line-facts.ts`.
 //
 // This test pins the current lexicon-facing behaviour so refactors can't drift
 // it silently. If the analyzer's keyword set is intentionally changed, update

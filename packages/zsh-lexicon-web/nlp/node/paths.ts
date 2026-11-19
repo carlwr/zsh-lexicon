@@ -11,7 +11,7 @@ const pkgDir = resolve(dirname(fileURLToPath(import.meta.url)), "..", "..")
 const nlpDir = resolve(pkgDir, "nlp")
 
 // The editable rules (YAML) with their editor schemas, and the held-out
-// sentence fixture (NLP.md).
+// sentence fixture.
 const rulesDir = resolve(nlpDir, "rules")
 // Committed, generated data (the `UPDATE_*` tests regenerate it) and the
 // held-out QA set with its editor schema.

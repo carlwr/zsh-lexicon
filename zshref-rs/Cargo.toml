@@ -16,7 +16,7 @@ rust-version = "1.88"                   # floor: rmcp
 
 # Gitignored files can still be included here (cargo's packaging layer takes
 # precedence over .gitignore — exactly what lets the dual-mode build ship
-# `data/` even though it's gitignored). See DATA-SYNC.md.
+# `data/` even though it's gitignored).
 # gitignore-style patterns: anchored, or `README.md` matches at any depth
 # (`npm/*/README.md` would ship).
 include = [

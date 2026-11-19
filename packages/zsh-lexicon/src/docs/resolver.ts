@@ -30,8 +30,7 @@
  * carries semantic meaning); the `Documented<K>` brand itself stays
  * identity-only. One parametric entry rather than per-category APIs:
  * dispatch lives in the resolver table, so consumers never branch on the
- * category. See DESIGN.md §"Resolver feedback channel" and PRINCIPLES.md
- * §"Resolver feedback (lossy normalization)".
+ * category.
  */
 
 import { escapeRegExp, isDefined, isSingle } from "@carlwr/typescript-extra"
@@ -167,8 +166,7 @@ function redirTailPattern(groupOp: string, tail: string): string {
  *
  * Word-designators (`0`, `a`, `n`, `x-y`, ...) and modifiers (`h`, `s/l/r[/]`,
  * ...) only carry meaning after an event designator; a bare `0` or `a` is
- * never a history token. Same "totality, not utility" posture as `param_expn`
- * (DESIGN.md §"History expansion: grammar components, not independent tokens").
+ * never a history token. Same "totality, not utility" posture as `param_expn`.
  */
 function resolveHistory(
   lexicon: Lexicon,
@@ -297,7 +295,7 @@ function resolveParamSubscript(
  * (`$#`, `$?`, `$!`, …), which have no leading letter to anchor a literal
  * lookup, and which also accepts `$PATH`, `${HOME}`, etc. Otherwise literal
  * first, then the `[...]` subscript close-variant. Wider user-expression
- * parsing stays out of scope (PRINCIPLES.md §"Resolver scope balance").
+ * parsing stays out of scope.
  */
 function resolveSpecialParam(
   lexicon: Lexicon,

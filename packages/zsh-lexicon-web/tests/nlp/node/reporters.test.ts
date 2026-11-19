@@ -4,7 +4,7 @@
 // index and model: the report paths the per-module tests do not reach, all
 // on one capped bench (the first few entries of every input) so the gated
 // suite stays fast. Structure only: no assertion holds a number from a real
-// eval, and nothing rendered is printed (NLP.md: no committed scores;
+// eval, and nothing rendered is printed (no committed scores;
 // holdout never printed).
 
 import { execFile } from "node:child_process"

@@ -4,7 +4,7 @@
 // net. This recovers the discrete signal — each item's rank under a
 // tuning, and how many items crossed the pass bar each way (never a net).
 //
-// Holdout hygiene (NLP.md): the mover lines print query strings, so the
+// Holdout hygiene: the mover lines print query strings, so the
 // curated report is restricted to the train split (`trainOnly`); the
 // mechanical set is all train.
 

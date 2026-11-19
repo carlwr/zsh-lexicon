@@ -13,6 +13,7 @@ Always run (general project overview):
 
 - **definition:** an `.md` file that has `audience: maintainer` in its YAML frontmatter
 - always has a `read-when:` frontmatter entry
+- lives in a `docs/` dir, under a lowercase kebab-case name
 - may contain rules, guidelines and/or information
 - normative when its `read-when:` applies
 - `AGENTS.md` files and `.md` under `skills/` are not maintainer docs (entry points / skill content respectively)
@@ -55,7 +56,7 @@ Hand-written category lists drift. Same posture for other closed zsh-lexicon uni
 
 - JSDoc, comments, docs: examples, not exhaustive lists; no hard-coded counts.
 - Runtime strings and JSON Schema `enum` values interpolate from canonical zsh-lexicon exports — in the Rust crate, from the embedded `index.json` and lexicon — never hand-typed.
-- Category-indexed tables: `DESIGN.md` §"Category-indexed artifacts belong in zsh-lexicon".
+- Category-indexed tables: `docs/design.md` §"Category-indexed artifacts belong in zsh-lexicon".
 
 ### Rendered reference prose
 
@@ -76,7 +77,7 @@ Rendered reference text is shared by extension hovers, tools, and the CLI. Treat
 
 ### TS↔Rust mirror discipline
 
-For TS↔Rust mirrors (`// MIRRORED-IN:` / `// MIRROR-OF:`), a rename touches both sides; behaviour is pinned by the resolver fixture (`DESIGN.md`).
+For TS↔Rust mirrors (`// MIRRORED-IN:` / `// MIRROR-OF:`), a rename touches both sides; behaviour is pinned by the resolver fixture (`docs/design.md`).
 
 ## Validation before returning
 
@@ -85,7 +86,7 @@ Pre-commit gate: `pnpm qa` — quiet on success; composition: `scripts/build/bui
 Related:
 
 - Full logs: `pnpm qa:verbose`.
-- Escalation order: `TESTING.md`.
+- Escalation order: `docs/testing.md`.
 - Build-script rationale: `scripts/build/README.md`.
 
 ```sh
@@ -99,11 +100,11 @@ pnpm format && pnpm qa && pnpm test:pack && pnpm test:integration
 - Build-scripts may never be run in parallel (since: may race) — chain with `&&`.
 - `pnpm qa` failure blocks commit — fix and re-run.
 - Docs-only / non-code: skip tests unless asked.
-- `.md` edits — run the pre-return audit per `STYLE-MD.md`. Required even for "small" edits.
+- `.md` edits — run the pre-return audit per `docs/style-md.md`. Required even for "small" edits.
 
 ### Test-running policy: project-specific markers
 
-Universal pattern: `TESTING.md`. Project-specific consent-required markers:
+Universal pattern: `docs/testing.md`. Project-specific consent-required markers:
 
 - `*INTERACTIVE*` — takes over the desktop (VS Code/Electron); macOS steals focus.
 - `*REGISTRY*` / `verifyREGISTRY` — depends on currently-published npm state.
@@ -116,7 +117,7 @@ Per-package `test:integration` is intentionally not one mechanism; each `package
 
 ### `ZL_SKIP_UPSTREAM`
 
-Universal pattern: `PACKAGING.md`. Project-specific bindings:
+Universal pattern: `docs/packaging.md`. Project-specific bindings:
 
 - env var name: `ZL_SKIP_UPSTREAM`
 - upstream-readiness script: `scripts/build/upstream-ready.mjs`
@@ -156,7 +157,7 @@ If making commits:
 - subject line: **imperative**, every clause — `cap x; test y`, never `x cap; y tests` or `x pads`
 - subject line max 55 chars; shorter is better
 - **subject line only** — **commit bodies are FORBIDDEN**
-- history rewrites: `WORKFLOW.md`
+- history rewrites: `docs/workflow.md`
 
 _Any SUBAGENTS that may commit **must** be given the above instructions._
 

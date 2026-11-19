@@ -1,6 +1,6 @@
 //! Output routing: JSON/help/version → stdout, errors → stderr.
 //!
-//! Exit-code contract mirrors `CLI-POLICY.md`.
+//! Exit-code contract mirrors `docs/cli-policy.md`.
 
 use clap::error::ErrorKind;
 use serde_json::Value;

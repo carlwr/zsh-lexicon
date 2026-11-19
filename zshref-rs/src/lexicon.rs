@@ -12,7 +12,7 @@ use std::str::FromStr;
 use std::sync::LazyLock;
 
 // `build.rs` picks `vendored` (data/) or `monorepo` (sibling TS artifacts)
-// and hands the paths over; DATA-SYNC.md.
+// and hands the paths over.
 const INDEX_JSON: &[u8] = include_bytes!(env!("ZSHREF_INDEX_JSON"));
 /// Every category's record array under its category — `index.categories` order.
 const RECORDS_JSON: &[u8] = include_bytes!(env!("ZSHREF_RECORDS_JSON"));
@@ -40,7 +40,7 @@ fn decode_index(bytes: &[u8]) -> Index {
         serde_json::from_slice(bytes).expect("embedded index.json must parse");
     assert_eq!(
         version, INDEX_VERSION,
-        "embedded index.json is version {version}; this crate reads version {INDEX_VERSION} — re-vendor `data/` (DATA-SYNC.md)"
+        "embedded index.json is version {version}; this crate reads version {INDEX_VERSION} — re-vendor `data/` (docs/data-sync.md)"
     );
     serde_json::from_slice(bytes).expect("embedded index.json must parse")
 }

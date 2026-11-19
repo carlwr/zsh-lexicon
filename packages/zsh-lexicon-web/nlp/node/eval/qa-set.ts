@@ -1,5 +1,5 @@
 // The QA set (`qa-set.yaml`): its shape, the loader, and the JSON Schema
-// generated from the shape for the YAML editor. A held-out set (NLP.md):
+// generated from the shape for the YAML editor. A held-out set:
 // code loads it, nothing prints an entry.
 
 import { z } from "zod"

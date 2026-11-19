@@ -18,7 +18,7 @@ Audit and fix maintainer-audience `.md` files against the project's markdown sty
    - all `AGENTS.md` files in the repo
    - all `.md` files under `skills/`
 
-2. **Read style rules.** Locate the markdown-style file — any maintainer-audience `.md` whose `read-when:` references markdown editing — typically `STYLE-MD.md`. Read it in full at the start of each pass. From this point on, the audit relies on those rules; this skill does not restate or summarise them.
+2. **Read style rules.** Locate the markdown-style file — any maintainer-audience `.md` whose `read-when:` references markdown editing — typically `docs/style-md.md`. Read it in full at the start of each pass. From this point on, the audit relies on those rules; this skill does not restate or summarise them.
 
 3. **Rule audit.** For every file from step 1, in order:
    - read the file in full

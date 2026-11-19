@@ -1,5 +1,5 @@
-// The curated sentence eval (NLP.md §"Eval architecture", layer B): every
-// fixture entry ranked as search does it — `rank`, then the lookup-map
+// The curated sentence eval (nlp/docs/nlp.md §"Eval architecture", layer B):
+// every fixture entry ranked as search does it — `rank`, then the lookup-map
 // promote — and each expected item graded on its own rank. `gradeEntries`
 // is the reference grading; the tuning bench regrades cached score inputs
 // instead, pinned equal to it.

@@ -42,7 +42,7 @@ Targets: the workflow's build matrix. The same list sits in `tests/msrv.rs` and 
 - `@carlwr/zshref-mcp` exists from the earlier TS alpha: no manual publish, the old publisher grant is re-pointed; a version number the TS alpha used is burned — the crate version must be past it
   - _pending:_ `npm deprecate` the TS alpha versions the Rust-backed package supersedes; on JSR, deprecate the package outright and revoke its trusted-publisher grant
 - the workflow skips a version already on the registry, so the tag that follows a manual publish completes the pair
-- prerelease dist-tags: `PACKAGING.md` (`latest` moves by hand)
+- prerelease dist-tags: root `docs/packaging.md` (`latest` moves by hand)
 
 ## Rehearsal
 
@@ -55,7 +55,7 @@ Targets: the workflow's build matrix. The same list sits in `tests/msrv.rs` and 
 ## After a release
 
 ```sh
-npm view @carlwr/zshref dist-tags; npm view @carlwr/zshref-mcp dist-tags   # `latest` moved? (PACKAGING.md)
+npm view @carlwr/zshref dist-tags; npm view @carlwr/zshref-mcp dist-tags   # `latest` moved? (root docs/packaging.md)
 npx -y @carlwr/zshref-mcp@<version> --version                              # the npm path, end to end
 cargo binstall -y --install-path /tmp/zshref zshref@<version>              # the archive path (brew install cargo-binstall)
 gh release download zshref-v<version> -p SHA256SUMS -p 'zshref-aarch64-apple-darwin.tar.gz' -D /tmp/rel

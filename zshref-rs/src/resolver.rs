@@ -1,5 +1,5 @@
 //! Per-category resolver dispatch, the category walk, and lossy-resolution
-//! feedback. See root DESIGN.md §"Resolver feedback channel".
+//! feedback. See root docs/design.md §"Resolver feedback channel".
 //
 // MIRROR-OF: packages/zsh-lexicon/src/docs/resolver.ts
 // MIRROR-OF: packages/zsh-lexicon/src/docs/normalize-option.ts
@@ -65,7 +65,7 @@ pub struct ResolvedHit<'lex> {
     pub feedback: Option<ResolverFeedback>,
 }
 
-/// Per-category resolver dispatch. See root DESIGN.md §"`resolve`: direct
+/// Per-category resolver dispatch. See root docs/design.md §"`resolve`: direct
 /// ∥ resolver" and `resolve` in zsh-lexicon.
 pub fn resolve_in<'lex>(
     lexicon: &'lex Lexicon,
@@ -569,7 +569,7 @@ mod tests {
         assert_eq!(
             fixture.version,
             FIXTURE_VERSION,
-            "{} is version {}; this test reads version {FIXTURE_VERSION} — stale data, or a test behind the format (DATA-SYNC.md)",
+            "{} is version {}; this test reads version {FIXTURE_VERSION} — stale data, or a test behind the format (docs/data-sync.md)",
             path.display(),
             fixture.version
         );

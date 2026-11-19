@@ -2,7 +2,7 @@
 
 `zshref` and `zshref-mcp` embed zsh-lexicon's JSON artifacts at compile time: rebuild after Rust or artifact changes.
 
-`build.rs` auto-detects the data source: the monorepo's zsh-lexicon artifacts when present (normal dev), else `data/` — vendored from zsh-lexicon's release tarballs; what the published `.crate` ships. Design: `DATA-SYNC.md`.
+`build.rs` auto-detects the data source: the monorepo's zsh-lexicon artifacts when present (normal dev), else `data/` — vendored from zsh-lexicon's release tarballs; what the published `.crate` ships. Design: `docs/data-sync.md`.
 
 ## Rebuild rules
 

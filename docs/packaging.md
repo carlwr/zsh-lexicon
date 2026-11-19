@@ -3,9 +3,9 @@ audience: maintainer
 read-when: build, packaging, release patterns
 ---
 
-# PACKAGING.md
+# Packaging
 
-Universal patterns for build, packaging, and release. Project-specific bindings: `AGENTS.md`; package names: `REPO-SHAPE.md`.
+Universal patterns for build, packaging, and release. Project-specific bindings: `AGENTS.md`; package names: `docs/repo-shape.md`.
 
 ## Makefile conventions
 
@@ -30,7 +30,7 @@ Invariants those headers don't carry:
   - residual: a compromised build job can still tamper with that artifact
 - Generated data artifacts ship as GitHub release assets on the package's own tag, never as a registry payload — a registry tarball carries code, and a data blob there is weight every consumer pays for.
   - generated outside the tree the registry packs — no exclusion rule has to hold them back
-  - the library's own runtime never reads them either; why: `DESIGN.md` §"Why the library parses at runtime"
+  - the library's own runtime never reads them either; why: `docs/design.md` §"Why the library parses at runtime"
   - the version lives in the release tag and inside the payload; the asset name carries neither
   - `/releases/latest/download/` is ambiguous when tag series share a repo — consumers pin the tag
   - the packing step validates the unpacked asset as a consumer sees it, dry runs included

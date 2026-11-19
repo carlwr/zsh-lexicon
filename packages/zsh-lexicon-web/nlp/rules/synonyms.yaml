@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=./schema/synonyms.schema.json
 #
-# Two synonym mechanisms; restraint rules + rationale: NLP.md §"Synonyms".
-# Authored blind to the eval sets (NLP.md).
+# Two synonym mechanisms; restraint rules + rationale: nlp/docs/nlp.md §"Synonyms".
+# Authored blind to the eval sets.
 #
 # index_groups — symmetric, INDEX-TIME: if any member matches a record (whole
 #   word / phrase), the others are appended to its `expanded` view before

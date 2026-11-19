@@ -101,7 +101,7 @@ describe("the file", () => {
     ])
     saveQueryCache(path, "id", vectors)
     expect(loadQueryCache(path, "id")).toEqual(vectors)
-    // No query text on disk: the held-out sets pass through here (NLP.md).
+    // No query text on disk: the held-out sets pass through here.
     expect(readFileSync(path, "utf8")).not.toContain("query")
     expect(loadQueryCache(path, "other").size).toBe(0)
     expect(loadQueryCache(join(dir, "missing.json"), "id").size).toBe(0)

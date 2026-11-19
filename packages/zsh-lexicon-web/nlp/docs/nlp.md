@@ -5,7 +5,7 @@ read-when: working on zsh-lexicon-web's NLP (ranker, index, rules, evals) or its
 
 # NLP
 
-Local semantic retrieval over zsh-lexicon records: the query embedded with BGE-small, ranked against a precomputed vector index, a lookup-map promote on top. Code: `nlp/`; layout, toolchain, tests: `../AGENTS.md`.
+Local semantic retrieval over zsh-lexicon records: the query embedded with BGE-small, ranked against a precomputed vector index, a lookup-map promote on top. Code: `nlp/`; layout, toolchain, tests: the package `AGENTS.md`.
 
 ## Hard rules: holdout isolation
 
@@ -66,9 +66,9 @@ Exempt: the lookup/parity/sanity fixtures — asserted by equality, the sanity s
 
 ## Synonyms: restraint + anti-swamp
 
-Two mechanisms in `nlp/rules/synonyms.yaml` (index-time `index_groups`, query-time `query_expansions`). Field notes + measurements: `nlp-observations.md`.
+Two mechanisms in `nlp/rules/synonyms.yaml` (index-time `index_groups`, query-time `query_expansions`). Field notes + measurements: `nlp/docs/observations.md`.
 
-- **Keep both lists short.** The model already bridges most generic synonymy (`nlp-observations.md`); add a term only after an ON/OFF probe shows it's missed.
+- **Keep both lists short.** The model already bridges most generic synonymy (`nlp/docs/observations.md`); add a term only after an ON/OFF probe shows it's missed.
 - **Query expansion is embedding-only.** `query_expansions` append to the *embedded* query string only; the raw query still drives lexical boosts (`nlp/core/rank.ts` `wordOverlap` / exact-word). Feeding expansions into the lexical bag promotes literal-name records and swamps short queries — don't.
 - **Minimal RHS + cap.** One canonical `add` per rule, capped append count (`nlp/core/query-expand.ts`). Don't grow `add` into a bag, or short queries collapse toward a generic centroid.
 

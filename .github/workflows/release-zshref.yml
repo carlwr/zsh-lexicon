@@ -12,7 +12,7 @@ name: Release zshref (Rust crate)
 # Jobs holding credentials run no crate or workspace dependency code: they
 # ship what `check` and `build` uploaded.
 #
-# Local rehearsal, act: `make cli-release-act` (zshref-rs/DISTRIBUTION.md).
+# Local rehearsal, act: `make cli-release-act`.
 
 on:
   push:

@@ -28,7 +28,7 @@ No shell execution, no subprocess, no network, no filesystem, no environment rea
 
 ## Contributing
 
-- `DESIGN.md` — architectural rationale
+- `docs/design.md` — architectural rationale
 - `AGENTS.md` — contributor conventions, testing, packaging, code style
 - `SECURITY.md` — security reporting
 

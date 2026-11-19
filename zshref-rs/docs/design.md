@@ -5,13 +5,13 @@ read-when: designing the crate's tools, adapters, schemas or CLI
 
 # Design — `zshref`
 
-Crate-owned rationale; lexicon, resolvers and the TS↔Rust mirror: root `DESIGN.md`.
+Crate-owned rationale; lexicon, resolvers and the TS↔Rust mirror: root `docs/design.md`.
 
 ## Schemas
 
 - Each tool's `inputSchema` and `outputSchema` are generated beside its implementation (`src/tools/schema.rs`).
 - `subKind` enums and the record total come from the loaded lexicon; the feedback schema from `index.json`.
-- Cross-cutting "co-released schema precision" rationale: root `PRINCIPLES.md`.
+- Cross-cutting "co-released schema precision" rationale: root `docs/principles.md`.
 - Drift guards, at test time:
   - `outputSchema` — integration tests validate CLI and MCP responses against it (`tests/common/`)
   - `inputSchema` — probed per field against the typed `Input` decode (`src/tools.rs` tests)
@@ -64,8 +64,8 @@ Why fuzzy at all:
 External coverage:
 
 - `README.md`
-- `DATA-SYNC.md`
-- `CLI-POLICY.md`
+- `docs/data-sync.md`
+- `docs/cli-policy.md`
 
 Rust, not a TS CLI: several TS CLI frameworks were tried and each fought `--help` quality; clap did not. A small, fast, self-contained binary is the product for a tool agents invoke hundreds of times per session; single-binary TS routes give large binaries and slow startup.
 
@@ -77,7 +77,7 @@ Cross-adapter notes:
 - **`zshref schema`** — one bundle, no per-tool subcommand: that would fight clap conventions.
 - **Output framing** — one JSON value per response (per request in `batch`), not one line per match:
   - `matchesTotal` and the shared `outputSchema` need the whole envelope
-  - overrides `CLI-POLICY.md`'s line-per-record SHOULD
+  - overrides `docs/cli-policy.md`'s line-per-record SHOULD
 - **Maintenance posture**:
   - re-vendor cadence measured in years
   - no runtime plugins

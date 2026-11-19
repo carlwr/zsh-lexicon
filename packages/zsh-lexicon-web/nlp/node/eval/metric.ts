@@ -1,4 +1,5 @@
-// The eval metric; definitions and rationale: NLP.md §"Eval architecture".
+// The eval metric; definitions and rationale: nlp/docs/nlp.md §"Eval
+// architecture".
 
 import { byteOrder } from "../../core/text"
 

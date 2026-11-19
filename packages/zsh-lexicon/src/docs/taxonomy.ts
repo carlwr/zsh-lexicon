@@ -68,15 +68,15 @@ const docCategorySet: ReadonlySet<string> = new Set(docCategories)
 export const isDocCategory = (raw: string): raw is DocCategory =>
   docCategorySet.has(raw)
 
-// Order rationale: per entry, here. The walk's design: DESIGN.md §"The category walk".
+// Order rationale: per entry, here. The walk's design: root docs/design.md
+// §"The category walk".
 // `param_expn` placement: its sigs are all literal templates (e.g. `${name:-word}`)
 // that no real user-code token will match via `simpleResolver`; the category reaches
 // consumers via search/docs rather than raw-token resolution. Position is therefore
 // irrelevant for shadowing; grouped with the other expansion-form categories.
 // `complex_command` precedes `reserved_word`: a raw `for`, `while`, `[[`, etc.
 // classifies as the structured complex-command record (rich synopsis +
-// alternateForms), not the reserved-word boilerplate. See PRINCIPLES.md
-// §"Overlap between categories is accepted".
+// alternateForms), not the reserved-word boilerplate.
 const classifyOrderTuple = [
   "complex_command",
   "reserved_word",
@@ -187,7 +187,7 @@ export interface DocRecordMap {
 }
 
 // Every record carries `category: K`, `id: Documented<K>` and `display` —
-// the structural identity invariant (PRINCIPLES.md §"Category types").
+// the structural identity invariant.
 type _AssertRecordsExtendBase = Assert<
   Eq<
     {

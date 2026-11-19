@@ -3,7 +3,7 @@
 // pass rate) and the scored entries of the held-out QA set (weighted
 // expected sets, negatives as penalties). The report is the hard-check
 // section and the summary lines; there is no per-entry section — the QA set
-// is held out (NLP.md) — and a warning (an expected item's absence or
+// is held out — and a warning (an expected item's absence or
 // a negative's presence) is counted, never printed with its query.
 
 import type { DocCategory, Lexicon } from "@carlwr/zsh-lexicon"
@@ -228,7 +228,7 @@ export function summaryJson(hard: HardCheckResult, scored: QaScore): QaSummary {
   }
 }
 
-/** The report: hard checks, then the summary; no per-entry section (NLP.md). */
+/** The report: hard checks, then the summary; no per-entry section. */
 export function renderQa(hard: HardCheckResult, scored: QaScore): string {
   const lines = [
     "=== Hard checks (per-category self-retrieval) ===",

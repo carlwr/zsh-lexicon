@@ -5,7 +5,7 @@ description: Orient quickly in the zsh-lexicon monorepo. Use at the start of any
 
 # Orientation: zsh-lexicon monorepo
 
-This skill adds navigation strategies and discovery scripts. Tool-agnostic posture: `WORKFLOW.md`.
+This skill adds navigation strategies and discovery scripts. Tool-agnostic posture: `docs/workflow.md`.
 
 ## META: about this skill
 

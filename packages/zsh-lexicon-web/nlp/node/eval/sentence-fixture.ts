@@ -2,7 +2,7 @@
 // natural-language queries, each naming the records it should surface, with
 // a per-item target depth and weight. The zod shape is also the editor
 // schema; loading validates and resolves each item's `d`/`w` against the
-// fixture defaults. Holdout hygiene (NLP.md):
+// fixture defaults. Holdout hygiene:
 // nothing prints an entry of the holdout split; `trainOnly` is the view for
 // anything that does.
 

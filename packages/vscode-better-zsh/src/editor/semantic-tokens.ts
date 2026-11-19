@@ -38,8 +38,7 @@ export class SemanticTokensProvider
   // `declare`, `local`, `repeat`). The analyzer's keyword set is deliberately
   // narrower for command-position semantics; `lexicon.reserved_word` is the
   // painting source so the editor renders the manual's full reserved list as
-  // keywords. See DESIGN.md §"Reserved word: an enumeration-primary doc
-  // category".
+  // keywords.
   private reservedWordPainting = cached(
     () => new Set<string>(this.lexicon.reserved_word.keys()),
   )

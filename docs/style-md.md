@@ -3,7 +3,7 @@ audience: maintainer
 read-when: editing markdown in maintainer-audience docs
 ---
 
-# STYLE-MD.md
+# Markdown style
 
 Rules for maintainer-audience `.md` — all repo `.md` except user-facing docs (`README.md`, `DEVELOPMENT.md`, `SECURITY.md`, `THIRD_PARTY_NOTICES.md` at the workspace root and at package roots). §"Content" governs code comments, JSDoc and config comments alike.
 
@@ -37,7 +37,7 @@ Every edit, however small:
 Prose about code is a last resort. Code is cheap to read, exact and never stale; prose restating it pays three times — words now, rot later, a second home to keep in sync.
 
 - Narrate only what code cannot say: when to run it, why it is shaped so, what it must not become.
-- Put that beside the code as a comment before anywhere else — the narrowest discoverable home (`WORKFLOW.md` §"Recording design decisions").
+- Put that beside the code as a comment before anywhere else — the narrowest discoverable home (`docs/workflow.md` §"Recording design decisions").
 - Where prose must refer to code, point: "targets: see the `Makefile`" — never a doc listing every `make <target>` with a gloss, which restates the file and rots on each rename.
 
 The subsections apply this: one home per fact, nothing that rots, fewer words.
@@ -46,7 +46,7 @@ The subsections apply this: one home per fact, nothing that rots, fewer words.
 
 Each rule has one home; audience decides which. When extending, search first; add a heading rather than restate elsewhere.
 
-**Repo-wide rules are never restated in subpackage docs.** `STYLE-MD.md`, `WORKFLOW.md`, `TESTING.md`, `PACKAGING.md` own style, workflow, testing and packaging outright; a subpackage `AGENTS.md` carries package-specific concerns only. No "Markdown style for this package" section, no "Editing notes" bullet restating root style, no one-line conciseness reminder — an innocent single sentence is already a violation. Restated rules drift, blur the canonical source and grow without bound.
+**Repo-wide rules are never restated in subpackage docs.** `docs/style-md.md`, `docs/workflow.md`, `docs/testing.md`, `docs/packaging.md` own style, workflow, testing and packaging outright; a subpackage `AGENTS.md` carries package-specific concerns only. No "Markdown style for this package" section, no "Editing notes" bullet restating root style, no one-line conciseness reminder — an innocent single sentence is already a violation. Restated rules drift, blur the canonical source and grow without bound.
 
 Narrow exception — the proximity restate (`Principle (root X, restated for proximity): …`): a repo-wide *principle* with sharp local relevance; never a style or workflow rule, which is uniform across the repo.
 
@@ -89,7 +89,7 @@ Per layer:
   - workflow
 - **Skill prose** (`skills/<name>/SKILL.md`) — procedural directions for an agent:
   - HOW, not WHAT
-  - reference other docs by purpose ("the markdown-style file") or pointer ("see `STYLE-MD.md`")
+  - reference other docs by purpose ("the markdown-style file") or pointer ("see `docs/style-md.md`")
   - never restate, summarise or assume content owned elsewhere:
     - script names
     - lint commands
@@ -189,7 +189,10 @@ Packed -> unpacked example:
 - fenced code blocks carry command sequences; never paraphrase them in prose
 - comments inside a fenced code block label variants
 - a list of files or links is a list — path alone by default; rationale only when it changes the reader's next action and isn't at the target
-- cross-refs default to file-level (`see DESIGN.md`); section-quoted (`§"..."`) reserved for large files where the section adds signal — drifts on heading rename
+- cross-refs default to file-level; section-quoted (`§"..."`) reserved for large files where the section adds signal — drifts on heading rename
+- a cross-ref names a path, never a bare filename — names repeat (`design.md`):
+  - repo-relative (`see docs/design.md`)
+  - inside a package, package-relative for its own files; "root" marks a repo-root path (root `docs/design.md`)
 - numbered ordinals only when semantically load-bearing
 - concrete enumerations (files, paths) OK when not inferrable — mark with inline HTML comment
 - incomplete sentences in bullets fine

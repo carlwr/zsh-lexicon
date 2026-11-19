@@ -52,7 +52,7 @@ if (hit) {
 - **Lazy lexicon.** `loadLexicon()` locates the data and returns; a category is parsed on first access, once. Touch few categories, parse few files.
 - **Parametric over per-category specialisation.** `DocCategory` is a closed union; adding a category is a local drop-in that the type system propagates.
 - **Focused imports.** The root is the data model; import the operations on it — resolution, rendering, assets, metadata — from named subpaths.
-- **Orthogonal API.** `resolve` + `renderRecord` compose; a hit carries the record, so nothing is looked up twice, and no combined "raw string → markdown" convenience is exposed — that's a deliberate design choice, not an omission. See [`DESIGN.md`](https://github.com/carlwr/zsh-lexicon/blob/main/DESIGN.md) §"API orthogonality".
+- **Orthogonal API.** `resolve` + `renderRecord` compose; a hit carries the record, so nothing is looked up twice, and no combined "raw string → markdown" convenience is exposed — that's a deliberate design choice, not an omission. See [`docs/design.md`](https://github.com/carlwr/zsh-lexicon/blob/main/docs/design.md) §"API orthogonality".
 
 ## Performance
 
@@ -94,7 +94,7 @@ One-shot lookup, as a CLI would do it (fresh process, wall clock; bare `node -e 
 
 - [`zshref`](https://github.com/carlwr/zsh-lexicon/tree/main/zshref-rs#readme) — single-file executable Rust CLI, and the same reference as a Model Context Protocol server.
 - [`better-zsh`](https://github.com/carlwr/zsh-lexicon/tree/main/packages/vscode-better-zsh) — VS Code extension.
-- [`DESIGN.md`](https://github.com/carlwr/zsh-lexicon/blob/main/DESIGN.md) — architectural rationale.
+- [`docs/design.md`](https://github.com/carlwr/zsh-lexicon/blob/main/docs/design.md) — architectural rationale.
 
 ## License
 

@@ -57,7 +57,7 @@ fn help_fits_at_eighty_columns() {
 
 #[test]
 fn example_prompt_lines_dont_wrap_at_eighty_columns() {
-    // CLI-POLICY.md wrapping-may-not-lose-indentation: clap-wrapped `$ <cmd>`
+    // docs/cli-policy.md wrapping-may-not-lose-indentation: clap-wrapped `$ <cmd>`
     // continuations land flush with the original indent and read as a fresh
     // shell statement. The 80-col guard misses it — every wrap fragment is
     // <=80. Detection: extract the prompt at wide vs narrow COLUMNS, absorbing
@@ -73,7 +73,7 @@ fn example_prompt_lines_dont_wrap_at_eighty_columns() {
         };
         assert_eq!(
             wide_cmd, narrow_cmd,
-            "zshref {args:?}: Example `$` prompt line wraps at COLUMNS=80, losing visual indentation (CLI-POLICY.md). Use an explicit shell `\\` continuation, or shorten the command.\n\nat wide COLUMNS: {wide_cmd:?}\nat COLUMNS=80: {narrow_cmd:?}",
+            "zshref {args:?}: Example `$` prompt line wraps at COLUMNS=80, losing visual indentation (docs/cli-policy.md). Use an explicit shell `\\` continuation, or shorten the command.\n\nat wide COLUMNS: {wide_cmd:?}\nat COLUMNS=80: {narrow_cmd:?}",
         );
     }
 }
@@ -97,7 +97,7 @@ fn help_invocations_are_equivalent() {
     //   root:    `zshref`             ≡ `zshref help`         ≡ `zshref --help`        ≡ `zshref -h`
     //   sub:     `zshref help SUBCMD`                          ≡ `zshref SUBCMD --help` ≡ `zshref SUBCMD -h`
     // Bare invocation routes through `cli::render_help` (implicit help
-    // request, CLI-POLICY.md); `help` does too; `-h`/`--help` share clap's
+    // request, docs/cli-policy.md); `help` does too; `-h`/`--help` share clap's
     // `HelpLong` action. Drift here usually means one path lost styling,
     // prose, or footer text.
     let mut groups: Vec<Vec<Vec<&str>>> =
