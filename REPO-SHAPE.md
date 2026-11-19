@@ -53,21 +53,21 @@ The shape before the 2026 reorg, and why it changed: the tag `pre-reorg` (its `.
 
 ## Names
 
-Settled public names — the binary, the pnpm package, or the repo if dedicated:
+Settled public names:
 
 - this repo `zsh-lexicon`
 - TS lib `@carlwr/zsh-lexicon`
   - alphas up to `0.1.0-alpha.2` published as `@carlwr/zsh-core`, tagged `zsh-core-v*`
 - CLI `zshref`; MCP server `zshref-mcp`
+  - MCP Registry: `io.github.carlwr/zshref-mcp`
 - SPA `zshref-web`
 - extension `better-zsh`, displayed "Better Zsh"
   - pnpm package name: the extension ID's, so stays `better-zsh`
-  - a dedicated repo: likely `vscode-better-zsh`
 
-## Extraction
+## One repo
 
-One planned: `zshref-rs/` → its own repo, `zshref`. Checklist: `zshref-rs/EXTRACTION.md`. Further splits: open.
+All products stay in this repo; why: `docs/decisions/no-repo-split.md`.
 
 ## Detail scope
 
-A leaf's specifics live under its own directory. Root maintainer docs point at them; they don't restate the detail. Anti-pattern: a root-level `EXTRACTION.md` accumulating items that belong in `zshref-rs/`'s own checklist.
+A leaf's specifics live under its own directory. Root maintainer docs point at them; they don't restate the detail.

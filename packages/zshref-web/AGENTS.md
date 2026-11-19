@@ -146,7 +146,8 @@ One route, `src/routes/+page.svelte`: the search, or the record its URL links to
 
 - static SPA, no server; deploying is a follow-up — artifacts build locally and in the CI `nlp` job, nothing publishes them
 - GitHub Pages first, Cloudflare Pages the alternative
-- Pages hosts one site per repo, and `docs-zsh-lexicon.yml` already claims it: the SPA takes the site root, the zsh-lexicon docs move under `/zsh-lexicon-docs/`, one deployment carries both
+- Pages hosts one site per repo, and `docs-zsh-lexicon.yml` already claims it: the SPA takes the site root, the zsh-lexicon docs move under `/docs/`, one deployment carries both
+  - deployed as the docs are: on zsh-lexicon release tags, plus manual dispatch; the SPA gets no tag of its own
 - the build is base-path-agnostic: serve it under any prefix, no `kit.paths.base`, fallback or `404.html`; the host must redirect `/prefix` to `/prefix/` (relative asset paths)
 - bundled packages' licences: Vite's `build.license` (`vite.config.ts`)
   - what it misses, by hand in `THIRD_PARTY_NOTICES.md`:
@@ -160,7 +161,7 @@ One route, `src/routes/+page.svelte`: the search, or the record its URL links to
 - the SPA deploy: §"Hosting intent"
 - forwarding stale record links: §"Routes"
 - a deployed-ids guard: §"Routes"
-- a split into its own repo: no technical driver; the payoff: the SPA's toolchain and dependency churn (SvelteKit, Vite, transformers.js) leave the workspace lockfile and root `qa`
+- a root `llms.txt` for the combined site: generated at site assembly, as `packages/zsh-lexicon/scripts/build-docs.mjs` generates the docs'; links only — the docs' `llms.txt`, the root README
 
 ## See also
 

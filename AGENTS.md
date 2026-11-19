@@ -137,10 +137,7 @@ Each has `--help`; all gate `pnpm qa`:
 
 ### One organization at a time
 
-Docs describe the current shape. The one planned change — extracting `zshref-rs/` into its own repo — is described in one place, `zshref-rs/EXTRACTION.md` (`REPO-SHAPE.md` points there); nothing else keeps a second timeline.
-
-- Exception: user-facing `.md` (`README.md`, `DEVELOPMENT.md`, `SECURITY.md`, `THIRD_PARTY_NOTICES.md`, wherever they sit) already links the crate at its post-extraction repo URL. Don't revert to monorepo-subpath form.
-- Maintainer-focused docs keep describing the monorepo state.
+Docs describe the current shape; none keeps a second timeline. Exempt: decision records (`docs/decisions/`), dated snapshots.
 
 ### `SECURITY.md`
 

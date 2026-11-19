@@ -89,7 +89,7 @@ jobs:
         run: git diff --exit-code -- zshref-rs/Cargo.lock
 
       # `cargo package` only builds the unpacked tarball; this runs its test
-      # suite too — the extraction simulation, tests included. Shared target
+      # suite too — the published crate, tested standalone. Shared target
       # dir: dependencies come from the steps above.
       - name: Test the packaged crate standalone
         run: |

@@ -29,7 +29,11 @@ Targets: the workflow's build matrix. The same list sits in `tests/msrv.rs` and 
 - _hand-rolled, not cargo-dist:_ its npm installer is the postinstall shape above, its npm publish is token-only, it owns the release workflow, and the project has one maintainer.
 - _launcher, not symlinked binaries:_ npm `bin` entries must be files inside the package; a JS stub per bin is the portable form. The launcher spawns exactly the bundled binary and forwards argv, stdio, environment, exit status and signals — nothing else; `scripts/npm-check` holds it to that.
 - _both packages own the `zshref-mcp` command:_ a global install of both collides; the READMEs say install one.
-- _Homebrew:_ untouched — `EXTRACTION.md`.
+- _Homebrew: a formula in the general tap (`carlwr/homebrew-tap`), from the first stable release:_ the tap's CI (`brew test-bot`) audits, builds and tests it
+  - `--features mcp`: both binaries
+  - no `head`: `data/` is gitignored, so a clone builds only via the Node toolchain
+  - `url` (the crates.io `.crate`) and `sha256`: bumped by hand per release
+  - draft: `git show pre-nosplit:zshref-rs/Formula/zshref.rb`
 
 ## npm registry setup (one-time)
 

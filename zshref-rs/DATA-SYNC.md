@@ -1,11 +1,11 @@
 ---
 audience: maintainer
-read-when: cross-repo TS→Rust data-sync design; dual-mode build; vendoring
+read-when: TS→Rust data-sync design; dual-mode build; vendoring
 ---
 
-# Cross-repo data-sync design — TS → Rust
+# Data-sync design — TS → Rust
 
-Rationale and trade-offs of the dual-mode build (option 6 below). Extraction-day items: `EXTRACTION.md`.
+Rationale and trade-offs of the dual-mode build (option 6 below).
 
 ## Problem shape
 
@@ -17,36 +17,34 @@ zsh-lexicon releases both as assets on its release tag (`packages/zsh-lexicon/sc
 
 Two lifecycles to satisfy:
 
-- **Monorepo (today).** TS source and Rust crate are siblings inside one tree. "Latest TS output" is always reachable on disk.
-- **Post-extraction.** End users run `cargo install zshref` with no Node, no pnpm, no TS checkout. Data must already live inside the published `.crate`.
-
-The design must be sane at both ends and in between.
+- **Dev (in-tree).** TS source and Rust crate are siblings inside one tree. "Latest TS output" is always reachable on disk.
+- **Install (published `.crate`).** End users run `cargo install zshref` with no Node, no pnpm, no TS checkout. Data must already live inside the published `.crate`.
 
 ## Two views, both legitimate
 
 - **A — source dependency.** Rust depends on TS *source* at a pinned revision; whoever builds Rust regenerates the JSONs.
 - **B — artifact dependency.** Rust depends on TS *build output* at a version; regeneration happened elsewhere; Rust just consumes bytes.
 
-A monorepo gives A for free; a package ecosystem gives B for free. The chosen design has to survive the transition.
+In-tree dev gets A for free; the published crate needs B.
 
 ## Options considered
 
 | # | Approach | Verdict |
 |---|---|---|
-| 1 | Vendor JSONs into the Rust repo, always committed | Workable, but generated files in git; doubles every TS-data change into two commits |
+| 1 | Vendor JSONs into the crate, always committed | Workable, but generated files in git, rewritten by every TS-data change |
 | 2 | `build.rs` fetches a release blob over the network | Dead-end: breaks air-gapped/CI/Nix; moves trust to a CDN; crates.io etiquette discourages it |
-| 3 | Git submodule of TS repo; `build.rs` runs `pnpm build` | Dead-end: requires Node + pnpm on every user machine; `cargo install` stops being a 10-second experience |
-| 4 | Split data into a separate `zshref-data` crate on crates.io | Defer: extra publish surface for no current consumer demand |
+| 3 | The `.crate` ships TS sources; `build.rs` runs `pnpm build` | Dead-end: requires Node + pnpm on every user machine; `cargo install` stops being a 10-second experience |
+| 4 | Split data into a separate `zshref-data` crate on crates.io | Defer: extra publish surface for no current consumer demand. Past ~5 MB embedded: this, or compress at build time |
 | 5 | Gitignored `data/`, populated on demand, `cargo publish` ships it via `include = [...]` override | Workable, but `git clone && cargo build` fails until someone runs the vendor target |
 | 6 | **Hybrid dual-mode with auto-detecting `build.rs`** | Recommended; landed |
 
 ## Recommendation: option 6
 
-The vendored half of (5) for post-extraction, combined with monorepo-path auto-detection for today. Published `.crate` files ship with `data/` populated, so vendored mode kicks in at install time without configuration.
+The vendored half of (5) for the published crate, combined with in-tree auto-detection for dev. Published `.crate` files ship with `data/` populated, so vendored mode kicks in at install time without configuration.
 
-- Monorepo, dev: in-tree artifacts auto-detected; no `data/` needed.
-- Monorepo, publish: the vendor target populates `data/`; `cargo publish` ships it.
-- Post-extraction: vendored mode only.
+- Dev: in-tree artifacts auto-detected; no `data/` needed.
+- Publish: the vendor target populates `data/`; `cargo publish` ships it.
+- Install: vendored mode only.
 
 ### Why auto-detect, not a feature flag?
 
@@ -61,7 +59,7 @@ A feature flag (`--features vendored`) would need `default-features = ["vendored
 
 ## Testability
 
-Both modes have make targets (the repo-root `Makefile`); `make cli-package` is the extraction simulation: cargo unpacks the tarball into `target/package/zshref-<version>/` and compiles it standalone — no monorepo visible; CI then runs the unpacked crate's tests (`ci-rust.yml`). If both pass, extraction-day `cargo build` and `cargo test` will too.
+Both modes have make targets (the repo-root `Makefile`); `make cli-package` is the standalone-package check: cargo unpacks the tarball into `target/package/zshref-<version>/` and compiles it standalone — no monorepo visible; CI then runs the unpacked crate's tests (`ci-rust.yml`). If both pass, so will a `cargo install` of the published crate.
 
 ## Drift guarantees
 

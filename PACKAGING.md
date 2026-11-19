@@ -32,7 +32,7 @@ Invariants those headers don't carry:
   - generated outside the tree the registry packs — no exclusion rule has to hold them back
   - the library's own runtime never reads them either; why: `DESIGN.md` §"Why the library parses at runtime"
   - the version lives in the release tag and inside the payload; the asset name carries neither
-  - `/releases/latest/download/` is ambiguous while tag series share a repo — consumers pin the tag
+  - `/releases/latest/download/` is ambiguous when tag series share a repo — consumers pin the tag
   - the packing step validates the unpacked asset as a consumer sees it, dry runs included
   - an artifact derived from vendored third-party material carries that notice — it travels alone
 - npm pins `latest` to a package's first publish, whatever `--tag` said.
