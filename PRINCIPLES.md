@@ -119,7 +119,7 @@ zsh-lexicon exposes every category uniformly. Examples of overlap:
 
 Ordering resolves these, outside the taxonomy:
 
-- `resolveAll` in zsh-lexicon, walking `classifyOrder` (the `zshref` tools, zshref-web)
+- `resolveAll` in zsh-lexicon, walking `classifyOrder` (the `zshref` tools, zsh-lexicon-web)
 - fallback chains in extension hover
 
 Resist restructuring the taxonomy to eliminate overlap; the resolver walk is where overlap cost belongs.

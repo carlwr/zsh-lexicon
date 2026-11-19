@@ -1,6 +1,6 @@
 # AGENTS.md — `zshref` (Rust crate)
 
-The `zshref` CLI and, behind the `mcp` feature, the `zshref-mcp` MCP server: one tool set, owned here (`src/tools.rs`). Semantic search is `zshref-web`'s (`packages/zshref-web/`); this crate has none.
+The `zshref` CLI and, behind the `mcp` feature, the `zshref-mcp` MCP server: one tool set, owned here (`src/tools.rs`). Semantic search is `zsh-lexicon-web`'s (`packages/zsh-lexicon-web/`); this crate has none.
 
 Crate rationale: `DESIGN.md`; CLI output rules: `CLI-POLICY.md` — both here, not the root's.
 

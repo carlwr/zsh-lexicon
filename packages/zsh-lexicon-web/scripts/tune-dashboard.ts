@@ -5,7 +5,7 @@ import { buildDashboard, renderDashboard } from "../nlp/node/eval/tune"
 import { reporterAssets, scriptFlags, tuneBaseSpec } from "./_args"
 
 const usage = `\
-pnpm --filter zshref-web nlp:tune-dashboard [--fast]
+pnpm --filter zsh-lexicon-web nlp:tune-dashboard [--fast]
 
   --fast     skip the mechanical layer and the QA (most of the run: both
              embed thousands of queries); their rows print as skipped.

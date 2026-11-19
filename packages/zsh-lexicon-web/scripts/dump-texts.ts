@@ -9,11 +9,11 @@ import { loadRulesYaml } from "../nlp/node/rules-load"
 import { scriptFlags } from "./_args"
 
 const usage = `\
-pnpm --filter zshref-web dump:texts
+pnpm --filter zsh-lexicon-web dump:texts
 
   the retrieval texts of every record, in index order, as pretty JSON on
   stdout; pnpm's own banner precedes it — for a clean file:
-  pnpm --filter zshref-web run --silent dump:texts > OUT.json\
+  pnpm --filter zsh-lexicon-web run --silent dump:texts > OUT.json\
 `
 scriptFlags("dump-texts", usage, [])
 

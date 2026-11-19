@@ -106,7 +106,7 @@ describe("script entry points", () => {
       // stderr is not asserted empty: onnxruntime greets some hosts (an emulated
       // CI container, say) with a cpuid warning on load.
       expect(help.status).toBe(0)
-      expect(help.stdout).toContain(`pnpm --filter zshref-web ${name}`)
+      expect(help.stdout).toContain(`pnpm --filter zsh-lexicon-web ${name}`)
       expect(unknown).toMatchObject({ status: 2, stdout: "" })
       expect(unknown.stderr).toContain("unknown argument(s): --no-such-flag")
     },

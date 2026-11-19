@@ -13,7 +13,7 @@ import {
 import { reporterAssets, scriptFlags, tuneBaseSpec } from "./_args"
 
 const usage = `\
-pnpm --filter zshref-web nlp:tune-sweep
+pnpm --filter zsh-lexicon-web nlp:tune-sweep
 
   ZL_TUNE_BASE=key=value,…  the base to sweep around (the committed tuning
              with these overrides); fold a sweep's best rows in and repeat.

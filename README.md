@@ -11,7 +11,7 @@ A structured zsh reference — a typed TS library and its JSON lexicon, parsed f
 | `@carlwr/zsh-lexicon` | Structured zsh reference: typed `Lexicon`, closed `DocCategory` taxonomy, `resolve`/`renderRecord`. Parsed from upstream zsh-5.9 Yodl source. | `packages/zsh-lexicon/` | npm, JSON release assets |
 | `zshref` | Rust crate: the single-file executable `zshref` CLI (JSON on stdout) and the `zshref-mcp` Model Context Protocol server over stdio for MCP-aware clients (Claude Code, Claude Desktop, Cursor, VS Code MCP, Zed, …). Offline; no Node, Python, or zsh runtime dependency. | `zshref-rs/` | crates.io, npm, GitHub release binaries; Homebrew planned |
 | `better-zsh` | VS Code extension: hovers, completions, semantic tokens, diagnostics. | `packages/vscode-better-zsh/` | VS Code Marketplace, Open VSX |
-| `zshref-web` | Browser SPA: local semantic search over the same reference — embeddings computed in the browser; index built from `zsh-lexicon` at build time. | `packages/zshref-web/` | static site (deploy planned) |
+| `zsh-lexicon-web` | Browser SPA: local semantic search over the same reference — embeddings computed in the browser; index built from `zsh-lexicon` at build time. | `packages/zsh-lexicon-web/` | static site (deploy planned) |
 
 Pick the package that matches your runtime; all wrap the same static zsh reference.
 

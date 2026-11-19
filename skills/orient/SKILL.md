@@ -23,7 +23,7 @@ Run selectively (TS packages only):
 # print exports (see --help):
 ./skills/orient/scripts/exports zsh-lexicon
 ./skills/orient/scripts/exports vscode-better-zsh
-./skills/orient/scripts/exports zshref-web
+./skills/orient/scripts/exports zsh-lexicon-web
 
 # print extension provider metadata:
 ./skills/orient/scripts/providers

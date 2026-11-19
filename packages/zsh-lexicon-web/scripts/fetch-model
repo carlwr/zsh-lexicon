@@ -32,7 +32,7 @@ files=(
 )
 
 help="
-Download the local NLP model into packages/zshref-web/.aux/model/ (~127M).
+Download the local NLP model into packages/zsh-lexicon-web/.aux/model/ (~127M).
 
 Idempotent: a file already present from the pinned revision, at its size, is
 left alone.
@@ -41,8 +41,8 @@ USAGE:
   $me [--help]
 
 THEN:
-  pnpm --filter zshref-web build:index   # the index (minutes on CPU); reporters build it in memory without
-  pnpm --filter zshref-web test          # the model- and index-gated tests now run instead of skipping
+  pnpm --filter zsh-lexicon-web build:index   # the index (minutes on CPU); reporters build it in memory without
+  pnpm --filter zsh-lexicon-web test          # the model- and index-gated tests now run instead of skipping
 "
 
 msg() { print -u2 -- "$me: $@" }

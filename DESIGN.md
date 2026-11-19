@@ -389,7 +389,7 @@ The mirror is accepted because it is bounded — it changes only with categories
 - order, per-entry rationale: inline comments on `classifyOrderTuple`, `taxonomy.ts`
 - admission — a category declining a scoped hit that is no token on its own (history word designators, modifiers): `walkAdmits`, zsh-lexicon `src/docs/resolver.ts`
 
-Owned by zsh-lexicon, not the tools: order and admission are lexicon properties (PRINCIPLES.md §"Push decisions downstream"); a walk re-derived per consumer had drifted — one applied the history rule, one did not. Callers: `zsh_docs` with `category` omitted, zshref-web's lookup canonicalizer. Rust reads order from `index.json`, mirrors admission as code; the fixture's `walk` section pins both.
+Owned by zsh-lexicon, not the tools: order and admission are lexicon properties (PRINCIPLES.md §"Push decisions downstream"); a walk re-derived per consumer had drifted — one applied the history rule, one did not. Callers: `zsh_docs` with `category` omitted, zsh-lexicon-web's lookup canonicalizer. Rust reads order from `index.json`, mirrors admission as code; the fixture's `walk` section pins both.
 
 ## Vendored `.yo` files are domain invariants
 

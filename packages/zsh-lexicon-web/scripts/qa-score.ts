@@ -6,7 +6,7 @@ import { renderQa, runHardChecks, scoreQaSet } from "../nlp/node/eval/qa-score"
 import { loadQaSet } from "../nlp/node/eval/qa-set"
 import { reporterAssets, scriptFlags } from "./_args"
 
-scriptFlags("qa-score", "pnpm --filter zshref-web nlp:qa-score", [])
+scriptFlags("qa-score", "pnpm --filter zsh-lexicon-web nlp:qa-score", [])
 
 const assets = await reporterAssets("qa-score")
 const qa = await loadQaSet()

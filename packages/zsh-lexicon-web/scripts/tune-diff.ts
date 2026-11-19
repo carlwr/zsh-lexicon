@@ -6,7 +6,7 @@ import { composedBase, loadBench, renderTuneDiff } from "../nlp/node/eval/sweep"
 import { reporterAssets, scriptFlags, tuneBaseSpec } from "./_args"
 
 const usage = `\
-ZL_TUNE_BASE=key=value,… pnpm --filter zshref-web nlp:tune-diff
+ZL_TUNE_BASE=key=value,… pnpm --filter zsh-lexicon-web nlp:tune-diff
 
   ZL_TUNE_BASE  the candidate (required): overrides over the committed
              tuning; the keys are nlp/node/eval/sweep.ts KNOBS.\

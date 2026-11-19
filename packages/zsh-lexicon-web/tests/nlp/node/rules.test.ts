@@ -56,7 +56,7 @@ describe("committed rules", () => {
 
   it("the emitted JSON round-trips", async () => {
     const rules = await loadRulesYaml()
-    const dir = await mkdtemp(join(tmpdir(), "zshref-rules-"))
+    const dir = await mkdtemp(join(tmpdir(), "zsh-lexicon-web-rules-"))
     try {
       await emitRulesJson(dir, rules)
       for (const f of RULE_FILES) {

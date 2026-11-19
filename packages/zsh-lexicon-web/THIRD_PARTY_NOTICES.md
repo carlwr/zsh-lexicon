@@ -1,4 +1,4 @@
-`zshref-web` ships third-party material in its built site (`build/`): data
+`zsh-lexicon-web` ships third-party material in its built site (`build/`): data
 derived from the zsh documentation, and bundled npm packages and fonts under
 their own licences. The build writes the npm packages' licences to
 `THIRD_PARTY_LICENSES.md`; this file covers the rest.

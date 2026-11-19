@@ -1,4 +1,4 @@
-# AGENTS.md — `zshref-web`
+# AGENTS.md — `zsh-lexicon-web`
 
 Static SPA: NLP search over zsh-lexicon records — plus the Node-side NLP toolchain that builds its artifacts and evaluates its ranking. Workspace member, private, not published.
 

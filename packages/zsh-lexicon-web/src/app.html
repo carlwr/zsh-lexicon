@@ -4,13 +4,13 @@
     <meta charset="utf-8" />
     <link rel="icon" href="data:," />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="zshref — zsh reference with natural-language search that runs in your browser" />
-    <title>zshref</title>
+    <meta name="description" content="zsh-lexicon — zsh reference with natural-language search that runs in your browser" />
+    <title>zsh-lexicon</title>
     <script>
       // Pre-paint theme application (avoids flash). Read persisted or system pref.
       (() => {
         try {
-          const stored = localStorage.getItem('zshref-theme');
+          const stored = localStorage.getItem('zsh-lexicon-web-theme');
           const t = stored || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
           document.documentElement.setAttribute('data-theme', t);
         } catch {

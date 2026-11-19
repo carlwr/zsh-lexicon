@@ -5,7 +5,11 @@ import { evalSentence, renderSentence } from "../nlp/node/eval/sentence"
 import { loadSentenceFixture } from "../nlp/node/eval/sentence-fixture"
 import { reporterAssets, scriptFlags } from "./_args"
 
-scriptFlags("eval-sentence", "pnpm --filter zshref-web nlp:eval-sentence", [])
+scriptFlags(
+  "eval-sentence",
+  "pnpm --filter zsh-lexicon-web nlp:eval-sentence",
+  [],
+)
 
 const assets = await reporterAssets("eval-sentence")
 const fixture = await loadSentenceFixture()

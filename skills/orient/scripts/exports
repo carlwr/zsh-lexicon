@@ -7,7 +7,7 @@ me_dir=${0:A:h}
 
 help="
 Usage:
-  $me <zsh-lexicon|vscode-better-zsh|zshref-web>...
+  $me <zsh-lexicon|vscode-better-zsh|zsh-lexicon-web>...
 
 Examples:
   $me zsh-lexicon
@@ -32,7 +32,7 @@ foreach arg ( $@ ) {
   case $arg in
        (zsh-lexicon      ) dirs+=( packages/zsh-lexicon/src       )
     ;; (vscode-better-zsh) dirs+=( packages/vscode-better-zsh/src )
-    ;; (zshref-web       ) dirs+=( packages/zshref-web/src packages/zshref-web/nlp )
+    ;; (zsh-lexicon-web  ) dirs+=( packages/zsh-lexicon-web/src packages/zsh-lexicon-web/nlp )
     ;; (-h|--help        ) print -r -- $help && exit 0
     ;; (*                ) die "illegal arg: $arg"
     ;;

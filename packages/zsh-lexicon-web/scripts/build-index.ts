@@ -24,7 +24,7 @@ import { emitRulesJson, loadRulesYaml } from "../nlp/node/rules-load"
 import { scriptFlags } from "./_args"
 
 const usage = `\
-pnpm --filter zshref-web build:index [--force] [--validate]
+pnpm --filter zsh-lexicon-web build:index [--force] [--validate]
 
   --force     rebuild the index even when the existing one validates
   --validate  only validate the existing index; exit 1 when it does not\

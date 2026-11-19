@@ -9,7 +9,7 @@ import { browser } from "$app/environment"
 export type Theme = "light" | "dark"
 
 /** Also read by app.html's pre-paint script, by hand; a test pins the two. */
-export const STORAGE_KEY = "zshref-theme"
+export const STORAGE_KEY = "zsh-lexicon-web-theme"
 
 const painted = (): Theme =>
   browser && document.documentElement.getAttribute("data-theme") === "light"

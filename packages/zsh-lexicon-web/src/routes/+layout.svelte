@@ -11,7 +11,7 @@
 <div class="shell">
   <header>
     <a class="brand" href={resolve("/")}>
-      <span class="logo">zshref</span>
+      <span class="logo">zsh-lexicon</span>
       <span class="tagline">zsh reference, searched in your browser</span>
     </a>
     <ThemeToggle />

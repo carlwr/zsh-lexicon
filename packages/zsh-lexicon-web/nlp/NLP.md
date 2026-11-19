@@ -1,6 +1,6 @@
 ---
 audience: maintainer
-read-when: working on zshref-web's NLP (ranker, index, rules, evals) or its held-out sets
+read-when: working on zsh-lexicon-web's NLP (ranker, index, rules, evals) or its held-out sets
 ---
 
 # NLP

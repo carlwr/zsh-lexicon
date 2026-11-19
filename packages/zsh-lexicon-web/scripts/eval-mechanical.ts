@@ -13,7 +13,7 @@ import { reporterAssets, scriptFlags } from "./_args"
 
 scriptFlags(
   "eval-mechanical",
-  "pnpm --filter zshref-web nlp:eval-mechanical",
+  "pnpm --filter zsh-lexicon-web nlp:eval-mechanical",
   [],
 )
 
