@@ -99,6 +99,17 @@ jobs:
       # defaults.
       - run: make cli-package
 
+      # `cli-package` vendored `data/` from the in-tree lexicon; a release ships
+      # only a released one. Dry runs warn. Not under act: its image has no
+      # `gh`, and act passes no token.
+      - name: Vendored data is a released lexicon
+        if: ${{ !env.ACT }}
+        continue-on-error: ${{ steps.mode.outputs.publish != 'true' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: scripts/check-released-lexicon assets zshref-rs/data
+
       # Unlocked steps above rewrite a stale Cargo.lock; `publish-crate`'s
       # `--locked` on a fresh checkout would then fail mid-release.
       - name: Cargo.lock is current
@@ -203,7 +214,8 @@ jobs:
 
       # Create-then-upload: a re-run after a partial failure finds the release
       # already there. Tag runs only — `gh release create` on a branch would
-      # mint a tag.
+      # mint a tag. "Latest" on the repo's Releases page is zshref's, set
+      # explicitly.
       - name: Attach release assets
         if: needs.check.outputs.publish == 'true' && startsWith(github.ref, 'refs/tags/zshref-v')
         working-directory: dist
@@ -214,7 +226,8 @@ jobs:
           VERSION: ${{ needs.check.outputs.version }}
         run: |
           pre=; [[ "$VERSION" != *-* ]] || pre=--prerelease
-          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" $pre \
+          latest=; [[ -n $pre ]] || latest=--latest
+          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" $pre $latest \
             --title "zshref $VERSION" \
             --notes "Prebuilt \`zshref\` and \`zshref-mcp\` binaries for zshref $VERSION. Also on crates.io (\`cargo install zshref --features mcp\`, \`cargo binstall zshref\`) and npm (\`@carlwr/zshref\`, \`@carlwr/zshref-mcp\`)."
           gh release upload "$TAG" --clobber zshref-* SHA256SUMS

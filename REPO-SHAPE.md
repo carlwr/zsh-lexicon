@@ -64,6 +64,10 @@ Settled public names:
 - extension `better-zsh`, displayed "Better Zsh"
   - pnpm package name: the extension ID's, so stays `better-zsh`
 
+## Releases
+
+- every product release embeds a released lexicon; release workflows check it: `scripts/check-released-lexicon`
+
 ## One repo
 
 All products stay in this repo; why: `docs/decisions/no-repo-split.md`.

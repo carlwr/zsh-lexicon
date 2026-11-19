@@ -159,6 +159,8 @@ jobs:
 
       # Create-then-upload rather than `create` with the assets inline: a
       # re-run after a partial failure finds the release already there.
+      # "Latest" on the repo's Releases page is zshref's: a stable release here
+      # opts out, or GitHub would hand it the badge.
       - name: Attach release assets
         if: startsWith(github.ref, 'refs/tags/zsh-lexicon-v') && (github.event_name == 'push' || inputs.dry_run == false)
         working-directory: packages/zsh-lexicon/.aux/release
@@ -169,7 +171,8 @@ jobs:
         run: |
           version=${TAG#zsh-lexicon-v}
           pre=; [[ "$version" != *-* ]] || pre=--prerelease
-          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" $pre \
+          latest=; [[ -n $pre ]] || latest=--latest=false
+          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" $pre $latest \
             --title "zsh-lexicon $version" \
             --notes "Generated zsh lexicon JSON, JSON Schema and resolver conformance fixture for @carlwr/zsh-lexicon $version."
           gh release upload "$TAG" --clobber *.tar.gz *.tar.gz.sha256

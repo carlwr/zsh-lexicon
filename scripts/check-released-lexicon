@@ -1,0 +1,128 @@
+#! /usr/bin/env zsh
+set -eu -o pipefail
+
+me=${0:t}
+
+help="
+Check that a product release embeds a released zsh-lexicon: content equal to
+what release zsh-lexicon-v<version> shipped. Release workflows run it before
+publishing.
+
+USAGE:
+  $me assets <dir>
+  $me tag
+  $me --help|-h
+
+MODES:
+
+  assets <dir>
+    <dir>: a tree as \`make vendor\` unpacks it, e.g. zshref-rs/data
+    <version>: the packageVersion of <dir>/json/index.json
+    downloads that release's assets (\`make print-release-assets\`), checks
+    them against their .sha256, unpacks them as \`make vendor\` does, then
+    compares the result with <dir>, file by file
+    needs: gh, authenticated; the network
+
+  tag
+    <version>: the version in packages/zsh-lexicon/package.json
+    checks packages/zsh-lexicon/ in the working tree, docs and tests aside,
+    against tag zsh-lexicon-v<version>
+    needs: the tag, locally
+    not covered: lexicon build inputs outside the package — root toolchain
+    config, the lockfile, catalog versions
+
+EXIT STATUS:
+  0  equal
+  1  differs, or no such release or tag
+  2  usage error
+"
+
+fail() {
+  # An annotation stays visible when the step is allowed to fail.
+  [[ -z ${GITHUB_ACTIONS-} ]] || print -r -- "::error title=$me::$1"
+  print -ru2 -- "$me: $1"
+  exit 1
+}
+
+usage-error() {
+  print -ru2 -- "$me: $1 (see --help)"
+  exit 2
+}
+
+check-assets() {
+  local dir=$1 shown=${1#$PWD/} version tag err a
+  local index=$dir/json/index.json
+  local -a assets pats
+
+  [[ -f $index ]] || fail "$shown/json/index.json: missing — run \`make vendor\` first"
+  version=$(jq -er .packageVersion $index) || fail "$shown/json/index.json: no packageVersion"
+  tag=zsh-lexicon-v$version
+
+  # `view` tells a missing release from other failures; `download` does not.
+  if ! err=$(gh release view $tag --json tagName 2>&1 >/dev/null); then
+    [[ $err != *'release not found'* ]] \
+      || fail "$tag: no such release — release zsh-lexicon first"
+    fail "$tag: $err"
+  fi
+
+  assets=( $(make -s print-release-assets) )
+  (( $#assets )) || fail "\`make print-release-assets\` names no assets"
+  for a in $assets; pats+=( -p $a -p $a.sha256 )
+
+  gh release download $tag -D $tmp/dl $pats || fail "$tag: download failed"
+  (cd $tmp/dl && shasum -a 256 -c --quiet ${^assets}.sha256) \
+    || fail "$tag: assets fail their checksums"
+
+  mkdir $tmp/tree
+  for a in $assets; tar -xzf $tmp/dl/$a -C $tmp/tree --strip-components=1
+
+  # Trees, not tarball hashes: tar metadata differs per pack.
+  diff -rq $tmp/tree $dir >&2 \
+    || fail "$shown differs from release $tag — bump the lexicon version, release it, retry"
+  print -r -- "$me: $shown equals release $tag"
+}
+
+check-tag() {
+  local pkg=packages/zsh-lexicon version tag
+
+  version=$(jq -er .version $pkg/package.json) || fail "$pkg/package.json: no version"
+  tag=zsh-lexicon-v$version
+  git rev-parse -q --verify refs/tags/$tag >/dev/null \
+    || fail "$tag: no such tag here — release zsh-lexicon first, or fetch tags"
+
+  # Not shipped: docs, tests.
+  local -a paths=(
+    $pkg
+    ":(exclude)$pkg/README.md"
+    ":(exclude)$pkg/AGENTS.md"
+    ":(exclude)$pkg/CLAUDE.md"
+    ":(exclude)$pkg/src/test"
+    ":(exclude)$pkg/vitest.config.ts"
+  )
+  git diff --quiet $tag -- $paths || {
+    git diff --stat $tag -- $paths >&2
+    fail "$pkg changed since $tag — bump the lexicon version, release it, retry"
+  }
+  print -r -- "$me: $pkg equals tag $tag"
+}
+
+case ${1-} in
+     (-h|--help)
+       print -r -- $help && exit 0
+  ;; (assets)
+       (( $# == 2 )) || usage-error "assets takes one <dir>"
+       dir=${2:a}
+       cd ${0:A:h}/..
+       tmp=$(mktemp -d)
+       trap 'rm -rf -- ${tmp:?}' EXIT
+       check-assets $dir
+  ;; (tag)
+       (( $# == 1 )) || usage-error "tag takes no argument"
+       cd ${0:A:h}/..
+       check-tag
+  ;; ('')
+       usage-error "no mode given"
+  ;; (*)
+       usage-error "unknown mode: $1"
+  ;;
+esac

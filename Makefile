@@ -62,6 +62,12 @@ vendor-clean
 vendor-clean:
 	rm -rf $(crate-dir)/data
 
+# The asset list, for scripts outside make.
+.PHONY:\
+print-release-assets
+print-release-assets:
+	@echo $(release-assets)
+
 .PHONY:\
 cli-vendored-test
 cli-vendored-test: vendor

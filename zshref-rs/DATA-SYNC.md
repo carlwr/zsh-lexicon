@@ -63,9 +63,10 @@ Both modes have make targets (the repo-root `Makefile`); `make cli-package` is t
 
 ## Drift guarantees
 
-Three kinds of drift:
+Drift kinds and their guards:
 
 - **TS source → vendored `data/`.** Anyone who edits TS source but forgets to re-vendor would ship stale data. Guard: the vendored-mode test and standalone package make targets — CI runs both, the release workflow the package check — so stale data fails before publish.
+- **Vendored `data/` → the lexicon release it names.** `make vendor` packs the in-tree lexicon, released or not. Guard: before publishing, the release workflow compares `data/` with that release's assets (`scripts/check-released-lexicon`).
 - **Schema drift (Rust structs vs. TS JSON shape).**
   - taxonomy order and the feedback schema come from `index.json`: no Rust-side mirror to drift
   - `build.rs` checks the index version first: stale data fails at `cargo build`

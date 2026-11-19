@@ -40,9 +40,11 @@ jobs:
     outputs:
       flag: ${{ steps.prerelease.outputs.flag }}
     steps:
+      # Tags: the released-lexicon check compares against one.
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
+          fetch-tags: true
 
       # The tag guard and tag-bound steps below run on tag refs only, so a
       # real publish must come from one; elsewhere a manual run only rehearses.
@@ -61,6 +63,19 @@ jobs:
           pkg_version=$(node -p "require('./packages/vscode-better-zsh/package.json').version")
           echo "tag=$tag_version pkg=$pkg_version"
           [ "$tag_version" = "$pkg_version" ] || { echo "tag mismatch vs package.json"; exit 1; }
+
+      # The check below is a zsh script.
+      - name: Install zsh
+        run: |
+          s=; command -v sudo >/dev/null 2>&1 && s=sudo
+          $s apt-get -o Acquire::Retries=3 update
+          $s apt-get -o Acquire::Retries=3 install -y --no-install-recommends zsh
+
+      # The VSIX bundles the in-tree lexicon's code; a release ships only a
+      # released one. Dry runs warn.
+      - name: Bundled lexicon is a released one
+        continue-on-error: ${{ !(github.event_name == 'push' || inputs.dry_run == false) }}
+        run: scripts/check-released-lexicon tag
 
       - name: Determine pre-release flag
         id: prerelease

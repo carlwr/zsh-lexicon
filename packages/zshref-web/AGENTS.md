@@ -148,6 +148,7 @@ One route, `src/routes/+page.svelte`: the search, or the record its URL links to
 - GitHub Pages first, Cloudflare Pages the alternative
 - Pages hosts one site per repo, and `docs-zsh-lexicon.yml` already claims it: the SPA takes the site root, the zsh-lexicon docs move under `/docs/`, one deployment carries both
   - deployed as the docs are: on zsh-lexicon release tags, plus manual dispatch; the SPA gets no tag of its own
+  - like every product release, the deploy embeds a released lexicon: `scripts/check-released-lexicon`, its mode picked with the deploy
 - the build is base-path-agnostic: serve it under any prefix, no `kit.paths.base`, fallback or `404.html`; the host must redirect `/prefix` to `/prefix/` (relative asset paths)
 - bundled packages' licences: Vite's `build.license` (`vite.config.ts`)
   - what it misses, by hand in `THIRD_PARTY_NOTICES.md`:
