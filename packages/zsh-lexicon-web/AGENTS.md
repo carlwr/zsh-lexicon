@@ -141,26 +141,24 @@ One route, `src/routes/+page.svelte`: the search, or the record its URL links to
 - `src/lib/theme.ts` — toggle
 - `src/lib/markdown.ts` — Shiki dual theme
 
-## Hosting intent
+## Hosting
 
-- static SPA, no server; deploying is a follow-up — artifacts build locally and in the CI `nlp` job, nothing publishes them
-- GitHub Pages first, Cloudflare Pages the alternative
-- Pages hosts one site per repo, and `docs-zsh-lexicon.yml` already claims it: the SPA takes the site root, the zsh-lexicon docs move under `/docs/`, one deployment carries both
-  - deployed as the docs are: on zsh-lexicon release tags, plus manual dispatch; the SPA gets no tag of its own
-  - like every product release, the deploy embeds a released lexicon: `scripts/check-released-lexicon`, its mode picked with the deploy
+- GitHub Pages: root `.github/workflows/pages.yml`
+  - one site, one deployment: the SPA at the root, the zsh-lexicon docs under `docs/` — assembled by root `pnpm site:assemble`
+  - deployed by each zsh-lexicon release once published, or by a manual dispatch — the SPA has no tag of its own
+  - like every product release, the deploy embeds a released lexicon: root `scripts/check-released-lexicon`
+  - no COOP/COEP headers on Pages: ORT-Web runs single-threaded
+- Cloudflare Pages the alternative
 - the build is base-path-agnostic: serve it under any prefix, no `kit.paths.base`, fallback or `404.html`; the host must redirect `/prefix` to `/prefix/` (relative asset paths)
 - bundled packages' licences: Vite's `build.license` (`vite.config.ts`)
-  - what it misses, by hand in `THIRD_PARTY_NOTICES.md`:
+  - what it misses, by hand in `THIRD_PARTY_NOTICES.md`, which the site ships at its root:
     - CSS-imported fonts
     - packages without a licence file
     - upstream material packages embed (Shiki's grammar, themes, regex engine)
-- before publishing: ship `THIRD_PARTY_NOTICES.md` with the site
 
 ## Deferred
 
-- the SPA deploy: §"Hosting intent"
 - forwarding stale record links: §"Routes"
-- a root `llms.txt` for the combined site: generated at site assembly, as `packages/zsh-lexicon/scripts/build-docs.mjs` generates the docs'; links only — the docs' `llms.txt`, the root README
 
 ## See also
 

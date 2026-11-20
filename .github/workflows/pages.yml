@@ -1,0 +1,81 @@
+name: Pages
+
+# The site: zsh-lexicon-web's search at the root, the zsh-lexicon API docs
+# under `docs/`. It serves a released lexicon, so the zsh-lexicon release
+# calls this once its publish succeeds; a manual run redeploys the ref it is
+# dispatched on. The `github-pages` environment admits `main` and
+# `zsh-lexicon-v*` refs only.
+#
+# Local rehearsal, act, the build only (VM sizing: DEVELOPMENT.md):
+#   ACT_WORKFLOW=pages.yml ACT_JOB=build ACT_EVENT=workflow_dispatch scripts/test-integration-act
+
+on:
+  workflow_call:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      # Every readiness hook verifies: the docs build builds zsh-lexicon once,
+      # and no later step can rebuild it mid-run.
+      ZL_SKIP_UPSTREAM: "1"
+      # A site without the search index must not deploy (`site:assemble`).
+      ZL_REQUIRE_WEB_ARTIFACTS: "1"
+    steps:
+      # Tags: the released-lexicon check compares against one.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-tags: true
+
+      - uses: ./.github/actions/setup-node-pnpm
+
+      # The check below is a zsh script.
+      - name: Install zsh
+        run: |
+          s=; command -v sudo >/dev/null 2>&1 && s=sudo
+          $s apt-get -o Acquire::Retries=3 update
+          $s apt-get -o Acquire::Retries=3 install -y --no-install-recommends zsh
+
+      # Every run deploys, so no run softens this; act rehearses working
+      # trees that may be ahead of the last release.
+      - name: Site embeds a released lexicon
+        continue-on-error: ${{ !!env.ACT }}
+        run: scripts/check-released-lexicon tag
+
+      - run: pnpm docs:zsh-lexicon
+      - uses: ./.github/actions/web-artifacts
+      - run: pnpm --filter zsh-lexicon-web run deployed-ids --check
+      - run: pnpm --filter zsh-lexicon-web build
+      - run: pnpm site:assemble
+
+      # Deploy plumbing, remote-only: act's artifact server lags the upload
+      # protocol this action speaks.
+      - if: ${{ !env.ACT }}
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: .aux/site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    # Builds may overlap; deploys run one at a time, a newer one waiting
+    # rather than cancelling one mid-flight.
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - id: deploy
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1

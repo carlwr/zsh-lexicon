@@ -1,0 +1,44 @@
+name: Build the web artifacts
+description: zsh-lexicon-web's model and search index, cached.
+
+# Central, so every job serving or testing the index restores the same cache
+# entries: one key expression, no drift. Expects zsh-lexicon built and the
+# readiness hooks verifying (`ZL_SKIP_UPSTREAM`), as the caller's job sets.
+#
+# The model is ~127M and gitignored; the index is minutes of CPU, peaking above
+# 2 GB.
+
+runs:
+  using: composite
+  steps:
+    # scripts/fetch-model is a zsh script; a caller may have zsh already.
+    - name: Install zsh
+      shell: bash
+      run: |
+        command -v zsh >/dev/null && exit 0
+        s=; command -v sudo >/dev/null 2>&1 && s=sudo
+        $s apt-get -o Acquire::Retries=3 update
+        $s apt-get -o Acquire::Retries=3 install -y --no-install-recommends zsh
+
+    # The fetch script pins the model revision, so its hash is the key: a
+    # bumped revision misses, an unchanged one restores and the fetch is a
+    # size check.
+    - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+      with:
+        path: packages/zsh-lexicon-web/.aux/model
+        key: nlp-model-${{ hashFiles('packages/zsh-lexicon-web/scripts/fetch-model') }}
+    - shell: bash
+      run: packages/zsh-lexicon-web/scripts/fetch-model
+
+    # The index derives from the lexicon as rendered, the NLP (rules, schemas,
+    # the Node side), the model and the embedder's package — all in the key,
+    # so a hit is an index of these exact inputs. No `restore-keys`:
+    # `build:index` keeps an index that validates against the lexicon, and
+    # validation cannot see a changed embedder. Per OS: the vectors are what
+    # the runner's ONNX build computes.
+    - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+      with:
+        path: packages/zsh-lexicon-web/static/artifacts
+        key: ${{ runner.os }}-nlp-index-${{ hashFiles('packages/zsh-lexicon/src/**', 'packages/zsh-lexicon/package.json', 'packages/zsh-lexicon-web/nlp/**', 'packages/zsh-lexicon-web/scripts/build-index.ts', 'packages/zsh-lexicon-web/scripts/fetch-model', 'pnpm-lock.yaml') }}
+    - shell: bash
+      run: pnpm --filter zsh-lexicon-web build:index

@@ -33,6 +33,7 @@
     "vsix": "node scripts/build/quiet-run.mjs vsix",
     "test:pack": "node scripts/build/quiet-run.mjs test:pack",
     "docs:zsh-lexicon": "pnpm --filter @carlwr/zsh-lexicon docs:build",
+    "site:assemble": "node scripts/build/assemble-site.mjs",
     "vscode:publish:dry": "pnpm --filter better-zsh vscode:publish:dry",
     "cli": "node scripts/build/quiet-run.mjs cli",
     "cli:debug": "node scripts/build/quiet-run.mjs cli:debug",

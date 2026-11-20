@@ -13,7 +13,7 @@ Library-first: the VS Code extension, the web SPA, and the Rust crate (CLI + MCP
 - **Orthogonal primitives** — raw-to-doc resolution and markdown rendering stay separate.
 - **Release assets** — a versioned index plus one record file (every category's records under its category), and a resolver conformance fixture for resolver mirrors, each with a JSON Schema (the record file validates against its schema's root, a category's records against `#/$defs/<category>`); attached to the GitHub release tag for consumers outside TypeScript.
 
-API reference: <https://carlwr.github.io/zsh-lexicon/>, built from the latest release. Public reading surface: `dist/types/*.d.mts` after `pnpm build`.
+API reference: <https://carlwr.github.io/zsh-lexicon/docs/>, built from the latest release. Public reading surface: `dist/types/*.d.mts` after `pnpm build`.
 
 ## Install
 

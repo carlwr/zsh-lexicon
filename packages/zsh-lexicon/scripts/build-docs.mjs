@@ -12,15 +12,9 @@ import { fileURLToPath } from "node:url"
 const here = dirname(fileURLToPath(import.meta.url))
 const pkgDir = resolve(here, "..")
 const distDir = join(pkgDir, "dist")
-// Keep the published site outside dist/ so docs builds cannot accidentally
-// leak HTML into the npm tarball.
-//
-// publishDir is the GitHub Pages root (served at /zsh-lexicon/); the zsh-lexicon
-// docs live one level down under /zsh-lexicon/zsh-lexicon/ so the URL names the
-// package rather than the repo. publishDir itself only carries a redirect +
-// .nojekyll — slot future per-package sites in as siblings of zsh-lexicon/.
-const publishDir = join(pkgDir, ".aux", "docs", "site")
-const siteDir = join(publishDir, "zsh-lexicon")
+// Outside dist/, so a docs build cannot leak HTML into the npm tarball. The
+// tree is self-contained, relative links only: it serves under any prefix.
+const siteDir = join(pkgDir, ".aux", "docs", "site")
 const apiDir = join(distDir, "api")
 const dataDir = join(pkgDir, "artifacts", "json")
 
@@ -55,24 +49,9 @@ const llms = [
   "",
 ].join("\n")
 
-// Forward the bare Pages URL (/zsh-lexicon/) to the package docs so visitors
-// don't land on a 404; generated, not a hand-maintained landing page.
-const redirect = [
-  "<!doctype html>",
-  '<html lang="en">',
-  '<meta charset="utf-8">',
-  `<title>${pkg.name} documentation</title>`,
-  '<meta http-equiv="refresh" content="0; url=./zsh-lexicon/">',
-  '<link rel="canonical" href="./zsh-lexicon/">',
-  `<a href="./zsh-lexicon/">${pkg.name} API documentation</a>`,
-  "",
-].join("\n")
-
 mkdirSync(siteDir, { recursive: true })
 rmSync(join(siteDir, "api"), { recursive: true, force: true })
 rmSync(join(siteDir, "data"), { recursive: true, force: true })
 cpSync(apiDir, join(siteDir, "api"), { recursive: true })
 cpSync(dataDir, join(siteDir, "data"), { recursive: true })
 writeFileSync(join(siteDir, "llms.txt"), llms)
-writeFileSync(join(publishDir, "index.html"), redirect)
-writeFileSync(join(publishDir, ".nojekyll"), "")

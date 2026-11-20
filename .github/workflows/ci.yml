@@ -36,12 +36,11 @@ jobs:
       - run: pnpm --filter @carlwr/zsh-lexicon run test
       - run: pnpm --filter @carlwr/zsh-lexicon run test:pack
 
-  # The NLP evals need the model (~127M, gitignored) and a built index
-  # (minutes of CPU). Their tests skip without the assets everywhere else and
-  # must fail here, so a missing asset cannot pass silently. Not part of
-  # `integration`: the index build alone would dominate that job. Rehearse
-  # with `ACT_JOB=nlp scripts/test-integration-act` — the index build peaks
-  # above 2 GB, so the docker VM needs sizing (DEVELOPMENT.md).
+  # The NLP evals need the model and a built index. Their tests skip without
+  # the assets everywhere else and must fail here, so a missing asset cannot
+  # pass silently. Not part of `integration`: the index build alone would
+  # dominate that job. Rehearse with `ACT_JOB=nlp scripts/test-integration-act`
+  # — the docker VM needs sizing for the index build (DEVELOPMENT.md).
   nlp:
     runs-on: ubuntu-latest
     permissions:
@@ -56,32 +55,8 @@ jobs:
         with:
           persist-credentials: false
       - uses: ./.github/actions/setup-node-pnpm
-      - name: Install zsh
-        run: |
-          # scripts/fetch-model is a zsh script
-          s=; command -v sudo >/dev/null 2>&1 && s=sudo
-          $s apt-get -o Acquire::Retries=3 update
-          $s apt-get -o Acquire::Retries=3 install -y --no-install-recommends zsh
-      # The fetch script pins the model revision, so its hash is the key: a
-      # bumped revision misses, an unchanged one restores and the fetch is a
-      # size check.
-      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
-        with:
-          path: packages/zsh-lexicon-web/.aux/model
-          key: nlp-model-${{ hashFiles('packages/zsh-lexicon-web/scripts/fetch-model') }}
-      - run: packages/zsh-lexicon-web/scripts/fetch-model
       - run: pnpm --filter @carlwr/zsh-lexicon build
-      # The index derives from the lexicon as rendered, the NLP (rules,
-      # schemas, the Node side), the model and the embedder's package — all in
-      # the key, so a hit is an index of these exact inputs. No `restore-keys`:
-      # `build:index` keeps an index that validates against the lexicon, and
-      # validation cannot see a changed embedder. Per OS: the vectors are what
-      # the runner's ONNX build computes.
-      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
-        with:
-          path: packages/zsh-lexicon-web/static/artifacts
-          key: ${{ runner.os }}-nlp-index-${{ hashFiles('packages/zsh-lexicon/src/**', 'packages/zsh-lexicon/package.json', 'packages/zsh-lexicon-web/nlp/**', 'packages/zsh-lexicon-web/scripts/build-index.ts', 'packages/zsh-lexicon-web/scripts/fetch-model', 'pnpm-lock.yaml') }}
-      - run: pnpm --filter zsh-lexicon-web build:index
+      - uses: ./.github/actions/web-artifacts
       - run: pnpm --filter zsh-lexicon-web run check
       - run: pnpm --filter zsh-lexicon-web run test
       - run: pnpm --filter zsh-lexicon-web build

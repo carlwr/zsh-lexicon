@@ -2,8 +2,9 @@
 // then pass by finding nothing. Pin the shapes GitHub accepts but a naive
 // directory listing misses, and pin that this repo's own sites are seen.
 //
-// A path-spelled `uses:` is checked here too: renaming an in-repo action breaks
-// every job naming it, and a CI run is otherwise the first thing to notice.
+// A path-spelled `uses:` is checked here too: renaming an in-repo action or
+// called workflow breaks every job naming it, and a CI run is otherwise the
+// first thing to notice.
 
 import assert from "node:assert/strict"
 import { mkdirSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs"
@@ -52,12 +53,16 @@ const inRepoUses = rel =>
     ...readFileSync(join(repoRoot, rel), "utf8").matchAll(/uses:\s*\.\/(\S+)/g),
   ].map(([, ref]) => join(ref))
 
-test("every in-repo `uses:` resolves to an action manifest", () => {
-  const manifests = new Set(actionFiles(repoRoot).map(rel => dirname(rel)))
-  const sites = [...workflowFiles(repoRoot), ...actionFiles(repoRoot)]
+test("every in-repo `uses:` resolves to an action or a workflow", () => {
+  const workflows = workflowFiles(repoRoot)
+  const targets = new Set([
+    ...actionFiles(repoRoot).map(rel => dirname(rel)),
+    ...workflows,
+  ])
+  const sites = [...workflows, ...actionFiles(repoRoot)]
   const broken = sites.flatMap(rel =>
     inRepoUses(rel)
-      .filter(ref => !manifests.has(ref))
+      .filter(ref => !targets.has(ref))
       .map(ref => `${rel}: ./${ref}`),
   )
   assert.deepEqual(broken, [])

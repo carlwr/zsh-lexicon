@@ -20,9 +20,9 @@ export const buildTasks = {
   vsix: `${pkg("better-zsh")} vsix`,
   // Recursive, not a per-package chain: every member self-builds, so without
   // the readiness helper shared upstream `dist/` is rebuilt once per member.
-  // Docs site is a published artifact too: typedoc / api-extractor breaks
-  // belong here, not in the container run.
-  "test:pack": `${recursive("test:pack")} && pnpm docs:zsh-lexicon`,
+  // The Pages site is a published artifact too: typedoc / api-extractor and
+  // assembly breaks belong here, not in the container run.
+  "test:pack": `${recursive("test:pack")} && pnpm docs:zsh-lexicon && pnpm site:assemble`,
   cli: "make cli",
   "cli:debug": "make cli-debug",
   "cli:test": "make cli-test",

@@ -5,13 +5,21 @@ Repo-level notes; package detail lives in each package.
 ## zsh-lexicon
 
 - `pnpm dump:refs` — the rendered lexicon as markdown, for visual QA; workflow: `packages/zsh-lexicon/AGENTS.md`
-- `pnpm docs:zsh-lexicon` — builds the API site (as deployed to GitHub Pages) into `packages/zsh-lexicon/.aux/docs/site/`
+- `pnpm docs:zsh-lexicon` — builds the API docs (the site's `docs/`) into `packages/zsh-lexicon/.aux/docs/site/`
 
 ### Changes to the release assets
 
 `crates/zshref/` embeds zsh-lexicon's JSON artifacts and tests its resolver mirror against the conformance fixture beside them. Any change to those artifacts — taxonomy, record fields, resolver behaviour — is cross-language.
 
 A resolver change the mirror does not follow fails `make cli-test`. How the artifacts reach the crate: `crates/zshref/docs/data-sync.md`.
+
+## The site
+
+GitHub Pages: the SPA at the root, the zsh-lexicon API docs under `docs/`. `pnpm site:assemble` puts the two packages' builds together into `.aux/site/`, as deployed. To try it under a prefix, as Pages serves it:
+
+```sh
+python3 -m http.server -d .aux   # http://localhost:8000/site/
+```
 
 ## Integration tests via `act`
 
@@ -25,7 +33,7 @@ The repo does not provide the container runtime.
 
 ### macOS
 
-If a CLI-first setup is preferred, `colima` works. Its default VM (2 CPUs, 2 GiB) is too small for the `nlp` job — the index build peaks above 2 GB and is OOM-killed (exit 137) — so size it at creation.
+If a CLI-first setup is preferred, `colima` works. Its default VM (2 CPUs, 2 GiB) is too small for the index build — the `nlp` job, the Pages build; it peaks above 2 GB and is OOM-killed (exit 137) — so size it at creation.
 
 - flags stick to the instance; `colima stop` + `colima start` with new values resizes it
 - exception: the Docker data disk never shrinks and survives `colima delete`; `--data` drops it

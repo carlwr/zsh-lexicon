@@ -69,6 +69,7 @@ Settled public names:
   - one crate, so `zshref` and `zshref-mcp` share a version and a tag
 - "Latest" on the Releases page is zshref's: every other stable `gh release create` passes `--latest=false`
 - every product release embeds a released lexicon; release workflows check it: `scripts/check-released-lexicon`
+- the site (the SPA, zsh-lexicon's API docs) has no stream of its own: each zsh-lexicon release deploys it — `.github/workflows/pages.yml`
 
 ## One repo
 
