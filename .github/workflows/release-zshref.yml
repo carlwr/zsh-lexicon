@@ -379,6 +379,24 @@ jobs:
           tar -xzf "$f" -C "$RUNNER_TEMP" mcp-publisher
           "$RUNNER_TEMP/mcp-publisher" --version
 
+      # The registry checks every npm package the entry names against npm,
+      # which can lag a fresh publish by minutes (7 for 0.1.0-alpha.5).
+      - name: Wait until npm serves the listed packages
+        if: needs.check.outputs.publish == 'true'
+        run: |
+          jq -r '.packages[] | select(.registryType == "npm") | "\(.identifier)/\(.version)"' \
+            "$RUNNER_TEMP/mcp/server.json" |
+          while read -r spec; do
+            url=https://registry.npmjs.org/${spec/\//%2F}
+            for try in $(seq 40); do
+              curl -fs -o /dev/null "$url" && { echo "npm serves $spec"; continue 2; }
+              echo "npm does not serve $spec yet ($try/40)"
+              sleep 30
+            done
+            echo "npm still does not serve $spec after 20 minutes"
+            exit 1
+          done
+
       # `validate` runs on dry runs too: it needs no login. A version already
       # listed is skipped, so a re-run after a partial failure completes the
       # release.
