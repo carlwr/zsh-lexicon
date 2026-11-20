@@ -124,14 +124,13 @@ One route, `src/routes/+page.svelte`: the search, or the record its URL links to
   - both parts `encodeURIComponent`-encoded: ids are zsh syntax (`/`, `%`, `+`, `&`, `#`)
   - not path routes: they need a host fallback and break relative asset paths; not hash routing: SvelteKit decodes the hash repeatedly, breaking ids with `%`, `/`, `?` or `#`
 - neither link part is a declared-stable contract: a zsh-lexicon change to either breaks deployed links, which render not-found
-  - a category rename surfaces as `categories.json` drift
-  - an id change surfaces only as lookup-golden drift (`UPDATE_LOOKUP_*`), for the ids those pin
+  - the deployed-ids guard: `nlp/data/deployed-ids.json` lists every record the site serves (`nlp/node/deployed-ids.ts`)
+    - a listed record the lexicon drops fails a test: forward it, or drop it from the list to accept the break
+    - rewritten only by `pnpm deployed-ids --write`, with each lexicon bump — a test holds the list to the lexicon version; the deploy runs `--check`
+    - why not an `UPDATE_*` golden: the module's header
   - not a link-only name per category: a second name for each, in a category-indexed table zsh-lexicon would own (root `docs/design.md`); guards category renames only
   - forwarding: deferred to the first breaking change after deploy
     - try first: on not-found, match the id alone across categories — covers category renames without an old-to-new table
-  - a deployed-ids guard: deferred to the deploy
-    - a committed list of the deployed ids, rewritten at each deploy: a vanished id fails a test — forward it, or accept the break
-    - not an `UPDATE_*` golden: regenerated on any drift, it would be a speed bump only
 - Back from a record restores the search as left: a SvelteKit snapshot, which the page relays
 
 ## Theming
@@ -161,7 +160,6 @@ One route, `src/routes/+page.svelte`: the search, or the record its URL links to
 
 - the SPA deploy: §"Hosting intent"
 - forwarding stale record links: §"Routes"
-- a deployed-ids guard: §"Routes"
 - a root `llms.txt` for the combined site: generated at site assembly, as `packages/zsh-lexicon/scripts/build-docs.mjs` generates the docs'; links only — the docs' `llms.txt`, the root README
 
 ## See also

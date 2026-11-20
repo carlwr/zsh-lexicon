@@ -13,8 +13,9 @@ const nlpDir = resolve(pkgDir, "nlp")
 // The editable rules (YAML) with their editor schemas, and the held-out
 // sentence fixture.
 const rulesDir = resolve(nlpDir, "rules")
-// Committed, generated data (the `UPDATE_*` tests regenerate it) and the
-// held-out QA set with its editor schema.
+// Committed, generated data (the `UPDATE_*` tests regenerate it, the
+// deployed-ids list its script), and the held-out QA set with its editor
+// schema.
 const dataDir = resolve(nlpDir, "data")
 // Build output (gitignored): what the SPA fetches, relative to the page,
 // under `artifacts/`; `scripts/build-index.ts` writes it. The model:
@@ -36,6 +37,7 @@ export const PATHS = {
   sanityFixture: resolve(dataDir, "sanity-fixture.json"),
   qaSet: resolve(dataDir, "qa-set.yaml"),
   qaSchema: resolve(dataDir, "qa-set.schema.json"),
+  deployedIds: resolve(dataDir, "deployed-ids.json"),
   modelDir: resolve(auxDir, "model"),
   queryCache: resolve(auxDir, "query-cache.json"),
   artifactsDir,
