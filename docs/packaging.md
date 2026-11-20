@@ -22,9 +22,10 @@ Invariants those headers don't carry:
 - The Node floor moves as one — sites and exemptions: `scripts/build/node-floor.test.mjs`.
   - the floor, 22, is provisional — chosen loosely (oldest non-EOL line; VS Code 1.110 hosts 22; nothing needs 24); revisit before 1.0
 - A version bump updates every site the workflow's tag guard checks — the guard fails the release, it does not warn.
-- Tokenless publishing is granted registry-side, per package — npm publishing-access settings, crates.io trusted-publishing settings.
+- Tokenless publishing is granted registry-side, per package or publisher — e.g. npm publishing-access settings, crates.io trusted-publishing settings.
   - the grant names one repo, and usually one workflow filename
   - renaming the file or moving the repo breaks the next publish until it is re-pointed
+  - a registry granting only an existing package (npm, Open VSX): its first version goes up by hand
 - A job holding publish credentials runs no dependency code but pinned publish tools — no lifecycle scripts, no shared cache.
   - its artifact comes from a build job holding none
   - residual: a compromised build job can still tamper with that artifact
