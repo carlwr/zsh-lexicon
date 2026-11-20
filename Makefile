@@ -88,12 +88,13 @@ cli-npm-check: artifacts
 
 # The release workflow under act, dry-run, on the one row act can build here
 # (Apple Silicon runs arm64 containers): every job through both --dry-run
-# publishes. Docs: crates/zshref/docs/distribution.md.
+# publishes and the MCP Registry entry's validation.
+# Docs: crates/zshref/docs/distribution.md.
 .PHONY:\
 cli-release-act
 cli-release-act:
 	ACT_WORKFLOW=release-zshref.yml \
-	ACT_JOB=publish-crate \
+	ACT_JOB=publish-mcp \
 	ACT_EVENT=workflow_dispatch \
 	./scripts/test-integration-act \
 	  --input dry_run=true \

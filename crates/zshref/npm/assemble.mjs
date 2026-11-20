@@ -3,6 +3,7 @@
 //
 //   <out>/zshref/       @carlwr/zshref — every platform's binaries + launcher
 //   <out>/zshref-mcp/   @carlwr/zshref-mcp — one bin over the fat package
+//   <out>/server.json   the thin package's MCP Registry entry
 //
 // Packages whatever archives it finds (a subset serves local checks and act
 // rehearsals); package identity comes from the crate manifest.
@@ -83,6 +84,29 @@ const directory = execFileSync("git", ["rev-parse", "--show-prefix"], {
   .trim()
   .replace(/\/$/, "")
 
+// The registry grants `io.github.<owner>/*` to OIDC tokens from the owner's
+// repos, and proves the npm package is ours through its `mcpName`.
+const server = {
+  $schema:
+    "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  name: `io.github.${new URL(meta.repository).pathname.split("/")[1]}/${thin.bin}`,
+  title: meta.name,
+  // the registry caps this at 100 characters; the crate's runs longer
+  description:
+    "Offline zsh reference: look up syntax, search the manual, print docs. No shell, no network.",
+  version: meta.version,
+  repository: { url: meta.repository, source: "github", subfolder: directory },
+  websiteUrl: meta.homepage,
+  packages: [
+    {
+      registryType: "npm",
+      identifier: thin.name,
+      version: meta.version,
+      transport: { type: "stdio" },
+    },
+  ],
+}
+
 const stub = (mod, bin) =>
   `#!/usr/bin/env node\nrequire(${JSON.stringify(mod)})(${JSON.stringify(bin)})\n`
 const shared = {
@@ -146,6 +170,7 @@ write(
     {
       name: thin.name,
       ...shared,
+      mcpName: server.name,
       bin: { [thin.bin]: `bin/${thin.bin}.js` },
       dependencies: { [fat.name]: meta.version },
     },
@@ -162,6 +187,8 @@ write(
   0o755,
 )
 
+write(opts.out, "server.json", `${JSON.stringify(server, null, 2)}\n`)
+
 console.log(
-  `staged ${fat.name} + ${thin.name} ${meta.version} [${keys.sort().join(", ")}] -> ${opts.out}`,
+  `staged ${fat.name} + ${thin.name} ${meta.version} [${keys.sort().join(", ")}], ${server.name} -> ${opts.out}`,
 )

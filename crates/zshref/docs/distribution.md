@@ -19,6 +19,8 @@ One tag, `zshref-v<version>`, feeds every channel.
 - GitHub Release archives — one per target, with `SHA256SUMS` and a build-provenance attestation; `cargo binstall zshref` reads them (`[package.metadata.binstall]` in `Cargo.toml`)
 - npm `@carlwr/zshref` — every target's binaries in one package, a launcher per bin (`npm/launch.js`)
 - npm `@carlwr/zshref-mcp` — bin `zshref-mcp` over an exact-version dependency on the fat package; the `npx -y` form MCP clients want
+- MCP Registry `io.github.carlwr/zshref-mcp` — lists `@carlwr/zshref-mcp`; entry staged by `npm/assemble.mjs`
+  - not the crate: the server needs `--features mcp`, which an entry cannot say
 
 Targets: the workflow's build matrix. The same list sits in `tests/msrv.rs` and `scripts/third-party-notices` — three languages, no practical single source; a target change touches all three, plus the platform lists in `README.md` and `npm/zshref/README.md`. macOS x64 stays while it costs nothing (cross-built on the arm64 runner; ~26 % of macOS Homebrew installs at the time of writing) and goes with its GitHub runner, expected around fall 2027. No musl: no request.
 
@@ -49,7 +51,7 @@ Targets: the workflow's build matrix. The same list sits in `tests/msrv.rs` and 
 `make cli-npm-check` and `make cli-release-act` — what each covers: `scripts/npm-check`'s header; the repo-root `Makefile`'s comment on `cli-release-act`. Only a real tag exercises:
 
 - the macOS and Windows rows (Rosetta on the runner, `7z`)
-- OIDC: npm provenance, crates.io token exchange
+- OIDC: npm provenance, crates.io token exchange, MCP Registry login
 - the release itself: attestation, `gh release`
 
 ## After a release
@@ -57,6 +59,7 @@ Targets: the workflow's build matrix. The same list sits in `tests/msrv.rs` and 
 ```sh
 npm view @carlwr/zshref dist-tags; npm view @carlwr/zshref-mcp dist-tags   # `latest` moved? (root docs/packaging.md)
 npx -y @carlwr/zshref-mcp@<version> --version                              # the npm path, end to end
+curl -fsS https://registry.modelcontextprotocol.io/v0/servers/io.github.carlwr%2Fzshref-mcp/versions/<version> | jq ._meta   # listed?
 cargo binstall -y --install-path /tmp/zshref zshref@<version>              # the archive path (brew install cargo-binstall)
 gh release download zshref-v<version> -p SHA256SUMS -p 'zshref-aarch64-apple-darwin.tar.gz' -D /tmp/rel
 gh attestation verify /tmp/rel/zshref-aarch64-apple-darwin.tar.gz --repo carlwr/zsh-lexicon
