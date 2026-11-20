@@ -49,7 +49,7 @@ describe("paramNames", () => {
     ])
     fc.assert(
       fc.property(fc.stringMatching(/^[A-Za-z_]\w{1,7}$/), site, (name, at) => {
-        const line = at.replace("%", name)
+        const line = at.replaceAll("%", name)
         expect(paramNames(lineDoc(line))).toEqual([name])
         expect(paramNames(lineDoc(`: # ${line}`))).toEqual([])
       }),

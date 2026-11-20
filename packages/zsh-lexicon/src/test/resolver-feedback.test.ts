@@ -176,7 +176,7 @@ describe("resolve(lexicon, 'special_param', raw) — subscripted", () => {
     })
     fc.assert(
       fc.property(input, ({ id, subscript, wrap }) => {
-        const raw = wrap.replace("%", () => `${id}[${subscript}]`)
+        const raw = wrap.replaceAll("%", () => `${id}[${subscript}]`)
         expect(resolve(spLexicon, "special_param", raw)).toEqual(
           hitIn(spLexicon, "special_param", id, {
             kind: "subscripted",

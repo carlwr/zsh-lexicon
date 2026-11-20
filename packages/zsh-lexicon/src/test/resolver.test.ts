@@ -181,7 +181,7 @@ describe("parens-agnostic flag resolvers", () => {
     for (const id of lexicon[cat].keys())
       for (const w of wraps)
         hit(
-          w.replace("%", () => id),
+          w.replaceAll("%", () => id),
           id,
         )
   })
@@ -331,7 +331,7 @@ describe("resolve round-trip (lexicon-wide)", () => {
       for (const [id, rec] of map) {
         if (!rec.sig || rec.sig === id) continue
         n++
-        for (const sig of wraps.map(w => w.replace("%", () => rec.sig))) {
+        for (const sig of wraps.map(w => w.replaceAll("%", () => rec.sig))) {
           const got = resolve(lexicon, cat, sig)?.record.id as
             | string
             | undefined
